@@ -6,6 +6,8 @@ import { startWith } from 'rxjs/internal/operators/startWith';
 import { map } from 'rxjs/internal/operators/map';
 import { MatTableDataSource } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
+import { Combo } from 'src/app/services/combos/combo';
+import { CombosService } from 'src/app/services/combos/combos.service';
 
 export interface PeriodicElement {
   insumo: string;
@@ -34,28 +36,41 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class IngresoMenuRealizadoComponent implements OnInit {
 
   myControl = new FormControl();
-  options: string[] = ['One', 'Two', 'Three'];
-  filteredOptions: Observable<string[]>;
+  filteredOptions: Observable<Combo[]>;
 
   displayedColumns: string[] = ['select', 'insumo', 'cantidad', 'unidadMedida'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
   selection = new SelectionModel<PeriodicElement>(true, []);
 
+  menues: Combo[];
 
-  constructor() { }
+  constructor(private comboService: CombosService) { }
 
   ngOnInit() {
-    this.filteredOptions = this.myControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this._filter(value))
-      );
+    this.getMenues();
   }
 
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
+  getMenues(): void {
+    this.comboService.getMenues()
+      .subscribe(menues => {
+        this.menues = menues
+        this.filteredOptions = this.myControl.valueChanges
+        .pipe(
+        startWith<string | Combo>(''),
+        map(value => typeof value === 'string' ? value : value.descripcion),
+        map(descripcion => this._filter(descripcion))
+      );
+      });
+  }
 
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+  displayMenues(menu: Combo) {
+    if (menu) { return menu.descripcion; }
+  }
+
+  private _filter(descripcion: string): Combo[] {
+    const filterValue = descripcion.toLowerCase();
+
+    return this.menues.filter(option => option.descripcion.toLowerCase().includes(filterValue));
   }
 
   /** Whether the number of selected elements matches the total number of rows. */

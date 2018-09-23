@@ -16,9 +16,25 @@
     margin: 10px;
   }
   .combo {
-      width: 300px;
+    width: 300px;
     margin: 10px;
   }
   table {
     width: 100%;
   }
+.inputNumber{
+  width: 100px;
+  margin: 10px;
+}
+.fecha{
+  width: 110px;
+  margin: 10px;
+}
+.button-row button,
+.button-row a {
+  margin-right: 8px;
+  margin: 10px;
+  align-content: right;
+  align-items: center;
+
+}
