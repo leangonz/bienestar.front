@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule }    from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule, MatCheckboxModule, MatDatepickerModule, MatNativeDateModule, MatInputModule, MatAutocompleteModule, MatTableModule} from '@angular/material';
+import {MatButtonModule, MatCheckboxModule, MatDatepickerModule, MatNativeDateModule, MatInputModule, MatAutocompleteModule, MatTableModule, MatSidenavModule, MatToolbarModule, MatIconModule, MatListModule} from '@angular/material';
 import {MatFormFieldModule} from '@angular/material/form-field';
 
 import { AppComponent } from './app.component';
@@ -15,7 +15,7 @@ import { AuthGuard } from 'src/app/auth.guard';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { fakeBackendProvider } from 'src/app/interceptors/fakedbackendinterceptor';
 import { IngresoMenuRealizadoComponent } from './ingreso-menu-realizado/ingreso-menu-realizado.component';
-
+import {FlexLayoutModule} from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -30,9 +30,11 @@ import { IngresoMenuRealizadoComponent } from './ingreso-menu-realizado/ingreso-
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    FlexLayoutModule,
     MatButtonModule, MatCheckboxModule,MatDatepickerModule,
     MatNativeDateModule, MatFormFieldModule,MatInputModule,
-    MatAutocompleteModule, MatTableModule
+    MatAutocompleteModule, MatTableModule,MatSidenavModule,
+    MatToolbarModule, MatIconModule,MatListModule
   ],
   providers: [AuthGuard,AuthenticationService,
 

@@ -6,8 +6,9 @@ import { startWith } from 'rxjs/internal/operators/startWith';
 import { map } from 'rxjs/internal/operators/map';
 import { MatTableDataSource } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
-import { Combo } from 'src/app/services/combos/combo';
-import { CombosService } from 'src/app/services/combos/combos.service';
+
+
+
 
 export interface PeriodicElement {
   insumo: string;
@@ -29,48 +30,36 @@ const ELEMENT_DATA: PeriodicElement[] = [
 ];
 
 @Component({
-  selector: 'app-ingreso-menu-realizado',
-  templateUrl: './ingreso-menu-realizado.component.html',
-  styleUrls: ['./ingreso-menu-realizado.component.css']
+  selector: 'app-ajuste-stock',
+  templateUrl: './ajuste-stock.component.html',
+  styleUrls: ['./ajuste-stock.component.css']
 })
-export class IngresoMenuRealizadoComponent implements OnInit {
+export class AjusteStockComponent implements OnInit {
 
   myControl = new FormControl();
-  filteredOptions: Observable<Combo[]>;
+  options: string[] = ['One', 'Two', 'Three'];
+  filteredOptions: Observable<string[]>;
 
   displayedColumns: string[] = ['select', 'insumo', 'cantidad', 'unidadMedida'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
   selection = new SelectionModel<PeriodicElement>(true, []);
 
-  menues: Combo[];
 
-  constructor(private comboService: CombosService) { }
+  constructor() { }
 
   ngOnInit() {
-    this.getMenues();
-  }
-
-  getMenues(): void {
-    this.comboService.getMenues()
-      .subscribe(menues => {
-        this.menues = menues
-        this.filteredOptions = this.myControl.valueChanges
-        .pipe(
-        startWith<string | Combo>(''),
-        map(value => typeof value === 'string' ? value : value.descripcion),
-        map(descripcion => this._filter(descripcion))
+    this.filteredOptions = this.myControl.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this._filter(value))
       );
-      });
-  }
 
-  displayMenues(menu: Combo) {
-    if (menu) { return menu.descripcion; }
-  }
+}
 
-  private _filter(descripcion: string): Combo[] {
-    const filterValue = descripcion.toLowerCase();
+private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
 
-    return this.menues.filter(option => option.descripcion.toLowerCase().includes(filterValue));
+    return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
   /** Whether the number of selected elements matches the total number of rows. */

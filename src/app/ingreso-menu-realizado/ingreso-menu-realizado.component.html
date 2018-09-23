@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="form">
   <mat-form-field class="margin">
     <input matInput [matDatepicker]="picker" placeholder="Fecha">
@@ -90,3 +91,102 @@
   </section>
 
 </div>
+=======
+<body class="mat-app-background">
+
+  <div class="form" >
+    <mat-form-field class="fecha">
+      <input matInput [matDatepicker]="picker" placeholder="Fecha">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    
+    <section class="section">
+      <mat-form-field class="inputNumber">
+        <input matInput type="number" placeholder="Lactarios" min="0" >
+      </mat-form-field>
+      
+      <mat-form-field class="inputNumber">
+        <input matInput type="number" placeholder="1 año" min="0" >
+      </mat-form-field>
+    </section>
+    <section class="section">
+      <mat-form-field class="inputNumber">
+        <input matInput type="number" placeholder="2 años" min="0" >
+      </mat-form-field>
+      
+      <mat-form-field class="inputNumber">
+        <input matInput type="number" placeholder="3 años" min="0" >
+      </mat-form-field>
+    </section>
+    <section class="section">
+      <mat-form-field class="inputNumber">
+        <input matInput type="number" placeholder="4-5 años" min="0" >
+      </mat-form-field>
+      
+      <mat-form-field class="inputNumber">
+        <input matInput type="number" placeholder="Adultos" min="0" >
+      </mat-form-field>
+    </section>
+  
+    <section>
+        <mat-form-field class="combo">
+            <input type="text" placeholder="Menu" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayMenues">
+              <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                {{option.descripcion}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+    </section>
+  
+    <section>
+  
+      <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    
+          <!-- Checkbox Column -->
+          <ng-container matColumnDef="select">
+            <mat-header-cell *matHeaderCellDef>
+              <mat-checkbox (change)="$event ? masterToggle() : null"
+                            [checked]="selection.hasValue() && isAllSelected()"
+                            [indeterminate]="selection.hasValue() && !isAllSelected()">
+              </mat-checkbox>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <mat-checkbox (click)="$event.stopPropagation()"
+                            (change)="$event ? selection.toggle(row) : null"
+                            [checked]="selection.isSelected(row)">
+              </mat-checkbox>
+            </mat-cell>
+          </ng-container>
+        
+          <!-- Position Column -->
+          <ng-container matColumnDef="insumo">
+            <mat-header-cell *matHeaderCellDef> Insumo </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.insumo}} </mat-cell>
+          </ng-container>
+        
+          <!-- Name Column -->
+          <ng-container matColumnDef="cantidad">
+            <mat-header-cell mat-header-cell *matHeaderCellDef> Cantidad </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.cantidad}} </mat-cell>
+          </ng-container>
+        
+          <!-- Weight Column -->
+          <ng-container matColumnDef="unidadMedida">
+            <mat-header-cell mat-header-cell *matHeaderCellDef> Unidad de medida </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.unidadMedida}} </mat-cell>
+          </ng-container>
+        
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"
+              (click)="selection.toggle(row)">
+          </mat-row>
+        </mat-table>
+    </section>
+    <div class="button-row">
+        <button mat-stroked-button color="primary">Guardar</button>
+    </div>
+  </div>
+</body>
+>>>>>>> 76e04d2503f5d8d657c22cfc3a7f04f2756b968c

@@ -21,21 +21,19 @@
     margin: 10px;
   }
   table {
-<<<<<<< HEAD
     width:40%;
     margin: 10px;
+    background-color: silver;
+    border-color: blue;
+    column-rule-color: gray;
+
   }
-=======
-    width: 100%;
+  th{
+      background-color: gray;
+    border-color: black;
+    column-rule-color: gray;
   }
-.inputNumber{
-  width: 100px;
-  margin: 10px;
-}
-.fecha{
-  width: 110px;
-  margin: 10px;
-}
+
 .button-row button,
 .button-row a {
   margin-right: 8px;
@@ -44,4 +42,3 @@
   align-items: center;
 
 }
->>>>>>> 76e04d2503f5d8d657c22cfc3a7f04f2756b968c
