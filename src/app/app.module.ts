@@ -16,13 +16,15 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 import { fakeBackendProvider } from 'src/app/interceptors/fakedbackendinterceptor';
 import { IngresoMenuRealizadoComponent } from './ingreso-menu-realizado/ingreso-menu-realizado.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
+import { AjusteStockComponent } from 'src/app/ajuste-stock/ajuste-stock.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LoginComponent,
-    IngresoMenuRealizadoComponent
+    IngresoMenuRealizadoComponent,
+    AjusteStockComponent
   ],
   imports: [
     BrowserModule,
