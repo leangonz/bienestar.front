@@ -1,7 +1,7 @@
 .form {
     width: 100%;
   }
-  
+
   .full-width {
     width: 100%;
   }
@@ -14,11 +14,13 @@
 
   .margin {
     margin: 10px;
+    width: 100px;
   }
   .combo {
-      width: 300px;
+    width: 300px;
     margin: 10px;
   }
   table {
-    width: 100%;
+    width:40%;
+    margin: 10px;
   }
