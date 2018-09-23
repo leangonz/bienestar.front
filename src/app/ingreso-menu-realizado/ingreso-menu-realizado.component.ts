@@ -8,6 +8,8 @@ import { MatTableDataSource } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Combo } from 'src/app/services/combos/combo';
 import { CombosService } from 'src/app/services/combos/combos.service';
+import { InsumoService } from 'src/app/services/insumos/insumo.service';
+import { InsumoMenu } from 'src/app/services/insumos/insumo';
 
 export interface PeriodicElement {
   insumo: string;
@@ -37,14 +39,13 @@ export class IngresoMenuRealizadoComponent implements OnInit {
 
   myControl = new FormControl();
   filteredOptions: Observable<Combo[]>;
-
-  displayedColumns: string[] = ['select', 'insumo', 'cantidad', 'unidadMedida'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
-  selection = new SelectionModel<PeriodicElement>(true, []);
-
   menues: Combo[];
 
-  constructor(private comboService: CombosService) { }
+  displayedColumns: string[] = ['select', 'insumo', 'cantidad', 'unidadMedida'];
+  dataSource = new MatTableDataSource<InsumoMenu>();
+  selection = new SelectionModel<InsumoMenu>(true, []);
+
+  constructor(private comboService: CombosService, private insumoService: InsumoService) { }
 
   ngOnInit() {
     this.getMenues();
@@ -65,6 +66,13 @@ export class IngresoMenuRealizadoComponent implements OnInit {
 
   displayMenues(menu: Combo) {
     if (menu) { return menu.descripcion; }
+  }
+
+  getInsumosMenu(idMenu): void {
+    this.insumoService.getInsumosMenu(idMenu)
+      .subscribe(insumos => {
+        this.dataSource = new MatTableDataSource<InsumoMenu>(insumos);
+      });
   }
 
   private _filter(descripcion: string): Combo[] {
