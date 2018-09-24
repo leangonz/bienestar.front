@@ -50,44 +50,36 @@
     <section>
   
       <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-    
-          <!-- Checkbox Column -->
-          <ng-container matColumnDef="select">
-            <mat-header-cell *matHeaderCellDef>
-              <mat-checkbox (change)="$event ? masterToggle() : null"
-                            [checked]="selection.hasValue() && isAllSelected()"
-                            [indeterminate]="selection.hasValue() && !isAllSelected()">
-              </mat-checkbox>
-            </mat-header-cell>
-            <mat-cell *matCellDef="let row">
-              <mat-checkbox (click)="$event.stopPropagation()"
-                            (change)="$event ? selection.toggle(row) : null"
-                            [checked]="selection.isSelected(row)">
-              </mat-checkbox>
-            </mat-cell>
-          </ng-container>
-        
-          <!-- Position Column -->
+          <!-- Insumo Column -->
           <ng-container matColumnDef="insumo">
             <mat-header-cell *matHeaderCellDef> Insumo </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.descripcion}} </mat-cell>
           </ng-container>
         
-          <!-- Name Column -->
+          <!-- Cantidad Column -->
           <ng-container matColumnDef="cantidad">
             <mat-header-cell mat-header-cell *matHeaderCellDef> Cantidad </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.cantidad}} </mat-cell>
           </ng-container>
         
-          <!-- Weight Column -->
+          <!-- Unidad de medida Column -->
           <ng-container matColumnDef="unidadMedida">
             <mat-header-cell mat-header-cell *matHeaderCellDef> Unidad de medida </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.unidadDeMedida}} </mat-cell>
           </ng-container>
         
+          <!-- Delete Column -->
+          <ng-container matColumnDef="delete">
+            <mat-header-cell mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <button mat-button (click)="borrarInsumo(element.id)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </mat-cell>
+          </ng-container>
+
           <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: displayedColumns;"
-              (click)="selection.toggle(row)">
+          <mat-row *matRowDef="let row; columns: displayedColumns;">
           </mat-row>
         </mat-table>
     </section>

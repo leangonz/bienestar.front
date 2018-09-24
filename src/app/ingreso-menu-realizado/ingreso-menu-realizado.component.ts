@@ -41,7 +41,7 @@ export class IngresoMenuRealizadoComponent implements OnInit {
   filteredOptions: Observable<Combo[]>;
   menues: Combo[];
 
-  displayedColumns: string[] = ['select', 'insumo', 'cantidad', 'unidadMedida'];
+  displayedColumns: string[] = ['insumo', 'cantidad', 'unidadMedida', 'delete'];
   dataSource = new MatTableDataSource<InsumoMenu>();
   selection = new SelectionModel<InsumoMenu>(true, []);
 
@@ -73,6 +73,12 @@ export class IngresoMenuRealizadoComponent implements OnInit {
       .subscribe(insumos => {
         this.dataSource = new MatTableDataSource<InsumoMenu>(insumos);
       });
+  }
+
+  borrarInsumo(idInsumo): void {
+    let index: number = this.dataSource.data.findIndex(d => d.id === idInsumo);
+    this.dataSource.data.splice(index,1);
+    this.dataSource = new MatTableDataSource<InsumoMenu>(this.dataSource.data);
   }
 
   private _filter(descripcion: string): Combo[] {
