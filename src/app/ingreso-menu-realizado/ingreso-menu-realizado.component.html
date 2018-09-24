@@ -59,7 +59,9 @@
           <!-- Cantidad Column -->
           <ng-container matColumnDef="cantidad">
             <mat-header-cell mat-header-cell *matHeaderCellDef> Cantidad </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.cantidad}} </mat-cell>
+            <mat-cell *matCellDef="let element">
+              <input type="number" [value]="element.cantidad" [(ngModel)]="element.cantidad">
+            </mat-cell>
           </ng-container>
         
           <!-- Unidad de medida Column -->
