@@ -60,7 +60,8 @@
           <ng-container matColumnDef="cantidad">
             <mat-header-cell mat-header-cell *matHeaderCellDef> Cantidad </mat-header-cell>
             <mat-cell *matCellDef="let element">
-              <input type="number" [value]="element.cantidad" [(ngModel)]="element.cantidad">
+              <input type="number" [value]="element.cantidad" [(ngModel)]="element.cantidad"
+              [step]="0.01">
             </mat-cell>
           </ng-container>
         
