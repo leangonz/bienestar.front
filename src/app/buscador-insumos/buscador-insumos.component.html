@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>Buscador Insumos</h1>
+<div mat-dialog-content>
+    <mat-form-field class="combo">
+      <input type="text" placeholder="Menu" aria-label="Number" matInput [formControl]="form" [matAutocomplete]="auto">
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayMenues">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option"
+        (onSelectionChange) = "selectedItem = option">
+          {{option.descripcion}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="selectedItem" cdkFocusInitial>Ok</button>
+</div>

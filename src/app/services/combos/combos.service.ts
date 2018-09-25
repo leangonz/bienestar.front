@@ -4,7 +4,8 @@ import { HttpHeaders } from '@angular/common/http';
 import { HttpErrorHandlerService, HandleError } from 'src/app/http-error-handler.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { catchError } from 'rxjs/internal/operators/catchError';
-import { Combo } from 'src/app/services/combos/combo';
+import { Combo } from 'src/app/model/combo';
+
 
 const httpOptions = {
   headers: new HttpHeaders({

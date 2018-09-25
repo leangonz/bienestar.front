@@ -4,31 +4,13 @@ import {FormControl} from '@angular/forms';
 import { Observable } from 'rxjs/internal/Observable';
 import { startWith } from 'rxjs/internal/operators/startWith';
 import { map } from 'rxjs/internal/operators/map';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource, MatDialog } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
-import { Combo } from 'src/app/services/combos/combo';
 import { CombosService } from 'src/app/services/combos/combos.service';
 import { InsumoService } from 'src/app/services/insumos/insumo.service';
-import { InsumoMenu } from 'src/app/services/insumos/insumo';
-
-export interface PeriodicElement {
-  insumo: string;
-  cantidad: number;
-  unidadMedida: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {insumo: 'Hydrogen', cantidad: 1,  unidadMedida: 'H'},
-  {insumo: 'Hydrogen', cantidad: 1, unidadMedida: 'He'},
-  {insumo: 'Hydrogen', cantidad: 1, unidadMedida: 'Li'},
-  {insumo: 'Hydrogen', cantidad: 1, unidadMedida: 'Be'},
-  {insumo: 'Hydrogen', cantidad: 1, unidadMedida: 'B'},
-  {insumo: 'Hydrogen', cantidad: 1, unidadMedida: 'C'},
-  {insumo: 'Hydrogen', cantidad: 1, unidadMedida: 'N'},
-  {insumo: 'Hydrogen', cantidad: 1, unidadMedida: 'O'},
-  {insumo: 'Hydrogen', cantidad: 1, unidadMedida: 'F'},
-  {insumo: 'Hydrogen', cantidad: 1, unidadMedida: 'Ne'},
-];
+import { Combo } from 'src/app/model/combo';
+import { InsumoMenu } from 'src/app/model/insumo';
+import { BuscadorInsumosComponent } from 'src/app/buscador-insumos/buscador-insumos.component';
 
 @Component({
   selector: 'app-ingreso-menu-realizado',
@@ -43,9 +25,9 @@ export class IngresoMenuRealizadoComponent implements OnInit {
 
   displayedColumns: string[] = ['insumo', 'cantidad', 'unidadMedida', 'delete'];
   dataSource = new MatTableDataSource<InsumoMenu>();
-  selection = new SelectionModel<InsumoMenu>(true, []);
 
-  constructor(private comboService: CombosService, private insumoService: InsumoService) { }
+  constructor(private comboService: CombosService, private insumoService: InsumoService,
+    public dialog: MatDialog) { }
 
   ngOnInit() {
     this.getMenues();
@@ -68,6 +50,12 @@ export class IngresoMenuRealizadoComponent implements OnInit {
     if (menu) { return menu.descripcion; }
   }
 
+  private _filter(descripcion: string): Combo[] {
+    const filterValue = descripcion.toLowerCase();
+
+    return this.menues.filter(option => option.descripcion.toLowerCase().includes(filterValue));
+  }
+  
   getInsumosMenu(idMenu): void {
     this.insumoService.getInsumosMenu(idMenu)
       .subscribe(insumos => {
@@ -81,23 +69,15 @@ export class IngresoMenuRealizadoComponent implements OnInit {
     this.dataSource = new MatTableDataSource<InsumoMenu>(this.dataSource.data);
   }
 
-  private _filter(descripcion: string): Combo[] {
-    const filterValue = descripcion.toLowerCase();
+  openDialog(): void {
+    const dialogRef = this.dialog.open(BuscadorInsumosComponent, {
+      width: '250px'
+    });
 
-    return this.menues.filter(option => option.descripcion.toLowerCase().includes(filterValue));
-  }
-
-  /** Whether the number of selected elements matches the total number of rows. */
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
-  }
-
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
-  masterToggle() {
-    this.isAllSelected() ?
-        this.selection.clear() :
-        this.dataSource.data.forEach(row => this.selection.select(row));
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result);
+      //agregar insumo a la tabla
+    });
   }
 }

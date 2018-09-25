@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule }    from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule, MatCheckboxModule, MatDatepickerModule, MatNativeDateModule, MatInputModule, MatAutocompleteModule, MatTableModule, MatSidenavModule, MatToolbarModule, MatIconModule, MatListModule} from '@angular/material';
+import {MatButtonModule, MatCheckboxModule, MatDatepickerModule, MatNativeDateModule, MatInputModule, MatAutocompleteModule, MatTableModule, MatSidenavModule, MatToolbarModule, MatIconModule, MatListModule, MatDialogModule} from '@angular/material';
 import {MatFormFieldModule} from '@angular/material/form-field';
 
 import { AppComponent } from './app.component';
@@ -17,6 +17,7 @@ import { fakeBackendProvider } from 'src/app/interceptors/fakedbackendintercepto
 import { IngresoMenuRealizadoComponent } from './ingreso-menu-realizado/ingreso-menu-realizado.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { AjusteStockComponent } from 'src/app/ajuste-stock/ajuste-stock.component';
+import { BuscadorInsumosComponent } from './buscador-insumos/buscador-insumos.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { AjusteStockComponent } from 'src/app/ajuste-stock/ajuste-stock.componen
     HomeComponent,
     LoginComponent,
     IngresoMenuRealizadoComponent,
-    AjusteStockComponent
+    AjusteStockComponent,
+    BuscadorInsumosComponent
   ],
   imports: [
     FormsModule,
@@ -37,8 +39,9 @@ import { AjusteStockComponent } from 'src/app/ajuste-stock/ajuste-stock.componen
     MatButtonModule, MatCheckboxModule,MatDatepickerModule,
     MatNativeDateModule, MatFormFieldModule,MatInputModule,
     MatAutocompleteModule, MatTableModule,MatSidenavModule,
-    MatToolbarModule, MatIconModule,MatListModule
+    MatToolbarModule, MatIconModule,MatListModule,MatDialogModule
   ],
+  entryComponents: [BuscadorInsumosComponent],
   providers: [AuthGuard,AuthenticationService,
 
     // provider used to create fake backend

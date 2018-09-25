@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HandleError, HttpErrorHandlerService } from 'src/app/http-error-handler.service';
 import { HttpClient } from '@angular/common/http';
-import { InsumoMenu } from 'src/app/services/insumos/insumo';
 import { Observable } from 'rxjs/internal/Observable';
 import { catchError } from 'rxjs/internal/operators/catchError';
 import { HttpHeaders } from '@angular/common/http';
+import { InsumoMenu } from 'src/app/model/insumo';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -17,7 +17,7 @@ const httpOptions = {
 })
 export class InsumoService {
 
-  url = 'http://localhost:8080/cargaInsumoMenu';
+  host = 'http://localhost:8080';
   private handleError: HandleError;
 
   constructor(private http: HttpClient,  httpErrorHandler: HttpErrorHandlerService) { 
@@ -25,9 +25,16 @@ export class InsumoService {
   }
 
   getInsumosMenu (idMenu): Observable<InsumoMenu[]> {
-    return this.http.post<InsumoMenu[]>(this.url, idMenu)
+    return this.http.post<InsumoMenu[]>(this.host + '/cargaInsumoMenu', idMenu)
       .pipe(
         catchError(this.handleError('getInsumosMenu', []))
+      );
+  }
+
+  getInsumos (): Observable<InsumoMenu[]> {
+    return this.http.get<InsumoMenu[]>(this.host + '/cargaInsumo')
+      .pipe(
+        catchError(this.handleError('getInsumos', []))
       );
   }
 }
