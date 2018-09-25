@@ -75,9 +75,9 @@ export class IngresoMenuRealizadoComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log(result);
-      //agregar insumo a la tabla
+      //agrego insumo a la tabla
+      this.dataSource.data.push(result);
+      this.dataSource = new MatTableDataSource<InsumoMenu>(this.dataSource.data);
     });
   }
 }
