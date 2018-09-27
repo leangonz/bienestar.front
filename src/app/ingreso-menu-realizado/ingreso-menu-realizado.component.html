@@ -1,40 +1,40 @@
 <body class="mat-app-background">
 
-  <div class="form" >
+  <div class="form" [formGroup]="comensalesGroup">
     <mat-form-field class="fecha">
-      <input matInput [matDatepicker]="picker" placeholder="Fecha">
+      <input matInput [matDatepicker]="picker" placeholder="Fecha" formControlName="fecha">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
     
     <section class="section">
       <mat-form-field class="inputNumber">
-        <input matInput type="number" placeholder="Lactarios" min="0" >
+        <input matInput type="number" placeholder="Lactarios" min="0" formControlName="lactarios">
       </mat-form-field>
       
       <mat-form-field class="inputNumber">
-        <input matInput type="number" placeholder="1 año" min="0" >
+        <input matInput type="number" placeholder="1 año" min="0" formControlName="unAnio">
       </mat-form-field>
     </section>
     <section class="section">
       <mat-form-field class="inputNumber">
-        <input matInput type="number" placeholder="2 años" min="0" >
+        <input matInput type="number" placeholder="2 años" min="0" formControlName="dosAnios">
       </mat-form-field>
       
       <mat-form-field class="inputNumber">
-        <input matInput type="number" placeholder="3 años" min="0" >
+        <input matInput type="number" placeholder="3 años" min="0" formControlName="tresAnios">
       </mat-form-field>
     </section>
     <section class="section">
       <mat-form-field class="inputNumber">
-        <input matInput type="number" placeholder="4-5 años" min="0" >
+        <input matInput type="number" placeholder="4-5 años" min="0" formControlName="cuatroCincoAnios">
       </mat-form-field>
       
       <mat-form-field class="inputNumber">
-        <input matInput type="number" placeholder="Adultos" min="0" >
+        <input matInput type="number" placeholder="Adultos" min="0" formControlName="adultos">
       </mat-form-field>
     </section>
-  
+  </div>
     <section>
         <mat-form-field class="combo">
             <input type="text" placeholder="Menu" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
@@ -87,8 +87,8 @@
         </mat-table>
     </section>
     <div class="button-row">
-        <button mat-stroked-button color="primary">Guardar</button>
+        <button mat-stroked-button color="primary" (click)="guardar()">Guardar</button>
         <button mat-raised-button (click)="openDialog()">Agregar Insumo</button>
     </div>
-  </div>
+  
 </body>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import {FormControl} from '@angular/forms';
+import {FormControl, FormGroup} from '@angular/forms';
 import { Observable } from 'rxjs/internal/Observable';
 import { startWith } from 'rxjs/internal/operators/startWith';
 import { map } from 'rxjs/internal/operators/map';
@@ -11,6 +11,7 @@ import { InsumoService } from 'src/app/services/insumos/insumo.service';
 import { Combo } from 'src/app/model/combo';
 import { InsumoMenu } from 'src/app/model/insumo';
 import { BuscadorInsumosComponent } from 'src/app/buscador-insumos/buscador-insumos.component';
+import { MenuRealizado } from 'src/app/model/menuRealizado';
 
 @Component({
   selector: 'app-ingreso-menu-realizado',
@@ -18,6 +19,16 @@ import { BuscadorInsumosComponent } from 'src/app/buscador-insumos/buscador-insu
   styleUrls: ['./ingreso-menu-realizado.component.css']
 })
 export class IngresoMenuRealizadoComponent implements OnInit {
+
+  comensalesGroup = new FormGroup({
+    fecha: new FormControl(),
+    lactarios: new FormControl(),
+    unAnio: new FormControl(),
+    dosAnios: new FormControl(),
+    tresAnios: new FormControl(),
+    cuatroCincoAnios: new FormControl(),
+    adultos: new FormControl(),
+  });
 
   myControl = new FormControl();
   filteredOptions: Observable<Combo[]>;
@@ -79,5 +90,23 @@ export class IngresoMenuRealizadoComponent implements OnInit {
       this.dataSource.data.push(result);
       this.dataSource = new MatTableDataSource<InsumoMenu>(this.dataSource.data);
     });
+  }
+  
+  guardar(): void {
+    var dtoToSend = {} as MenuRealizado ;
+    dtoToSend.fecha = this.comensalesGroup.get("fecha").value;
+    dtoToSend.lactarios = this.comensalesGroup.get("lactarios").value;
+    dtoToSend.unAnio = this.comensalesGroup.get("unAnio").value;
+    dtoToSend.dosAnios = this.comensalesGroup.get("dosAnios").value;
+    dtoToSend.tresAnios = this.comensalesGroup.get("tresAnios").value;
+    dtoToSend.cuatroCincoAnios = this.comensalesGroup.get("cuatroCincoAnios").value;
+    dtoToSend.adultos = this.comensalesGroup.get("adultos").value;
+    dtoToSend.insumos = this.dataSource.data;
+    console.log(dtoToSend);
+
+    this.insumoService.guardarMenuRealizado(dtoToSend)
+      .subscribe(resultado => {
+        console.log(resultado);
+      });
   }
 }
