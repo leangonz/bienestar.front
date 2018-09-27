@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { Observable } from 'rxjs/internal/Observable';
 import { startWith } from 'rxjs/internal/operators/startWith';
 import { map } from 'rxjs/internal/operators/map';
@@ -21,13 +21,13 @@ import { MenuRealizado } from 'src/app/model/menuRealizado';
 export class IngresoMenuRealizadoComponent implements OnInit {
 
   comensalesGroup = new FormGroup({
-    fecha: new FormControl(),
-    lactarios: new FormControl(),
-    unAnio: new FormControl(),
-    dosAnios: new FormControl(),
-    tresAnios: new FormControl(),
-    cuatroCincoAnios: new FormControl(),
-    adultos: new FormControl(),
+    fecha: new FormControl('', Validators.required),
+    lactarios: new FormControl('', Validators.required),
+    unAnio: new FormControl('', Validators.required),
+    dosAnios: new FormControl('', Validators.required),
+    tresAnios: new FormControl('', Validators.required),
+    cuatroCincoAnios: new FormControl('', Validators.required),
+    adultos: new FormControl('', Validators.required),
   });
 
   myControl = new FormControl();
