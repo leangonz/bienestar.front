@@ -68,6 +68,7 @@ export class IngresoMenuRealizadoComponent implements OnInit {
   }
   
   getInsumosMenu(idMenu): void {
+    console.log(idMenu);
     this.insumoService.getInsumosMenu(idMenu)
       .subscribe(insumos => {
         this.dataSource = new MatTableDataSource<InsumoMenu>(insumos);
