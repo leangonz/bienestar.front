@@ -39,7 +39,7 @@ export class InsumoService {
   }
 
   guardarMenuRealizado (data): Observable<Boolean> {
-    return this.http.post<Boolean>(this.host + '/guardarInsumoRealizado', data)
+    return this.http.post<Boolean>(this.host + '/guardarConsumoRealizado', data)
       .pipe(
         catchError(this.handleError('guardarMenuRealizado', false))
       );
