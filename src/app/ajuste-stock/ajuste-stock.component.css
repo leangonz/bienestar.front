@@ -31,6 +31,7 @@
   width: 110px;
   margin: 10px;
 }
+
 .button-row button,
 .button-row a {
   margin-right: 8px;
@@ -39,3 +40,15 @@
   align-items: center;
 
 }
+.page_title
+{
+  width: 100%;
+  color: white;
+  background: #3f51b5;
+  margin-top: 1px;
+    }
+.margin_title
+{
+
+  margin-left: 10px;
+    }

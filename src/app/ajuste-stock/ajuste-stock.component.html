@@ -1,4 +1,7 @@
 <body class="mat-app-background">
+  <div class="page_title">
+  <h2 class="margin_title"> Ajuste de Stock</h2>
+  </div>
   <form [formGroup]="ajusteGroup" (ngSubmit)="guardar()">
     <mat-form-field class="fecha">
       <input matInput [matDatepicker]="picker" placeholder="Fecha" formControlName="fecha">
@@ -17,14 +20,14 @@
         </mat-form-field>
   </section>
   <section>
-  
+
     <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
         <!-- Insumo Column -->
         <ng-container matColumnDef="insumo">
           <mat-header-cell *matHeaderCellDef> Insumo </mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.descripcion}} </mat-cell>
         </ng-container>
-      
+
         <!-- Cantidad Column -->
         <ng-container matColumnDef="cantidad">
           <mat-header-cell mat-header-cell *matHeaderCellDef> Cantidad a ajustar</mat-header-cell>
@@ -33,13 +36,13 @@
             [step]="0.01" [ngModelOptions]="{standalone: true}">
           </mat-cell>
         </ng-container>
-      
+
         <!-- Unidad de medida Column -->
         <ng-container matColumnDef="unidadMedida">
           <mat-header-cell mat-header-cell *matHeaderCellDef> Unidad de medida </mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.unidadDeMedida}} </mat-cell>
         </ng-container>
-      
+
         <!-- Delete Column -->
         <ng-container matColumnDef="delete">
           <mat-header-cell mat-header-cell *matHeaderCellDef></mat-header-cell>
