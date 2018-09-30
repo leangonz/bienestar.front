@@ -28,9 +28,9 @@ export class IngresoMenuRealizadoComponent implements OnInit {
     tresAnios: new FormControl('', Validators.required),
     cuatroCincoAnios: new FormControl('', Validators.required),
     adultos: new FormControl('', Validators.required),
+    myControl: new FormControl()
   });
 
-  myControl = new FormControl();
   filteredOptions: Observable<Combo[]>;
   menues: Combo[];
 
@@ -48,7 +48,7 @@ export class IngresoMenuRealizadoComponent implements OnInit {
     this.comboService.getMenues()
       .subscribe(menues => {
         this.menues = menues
-        this.filteredOptions = this.myControl.valueChanges
+        this.filteredOptions = this.comensalesGroup.get("myControl").valueChanges
         .pipe(
         startWith<string | Combo>(''),
         map(value => typeof value === 'string' ? value : value.descripcion),
