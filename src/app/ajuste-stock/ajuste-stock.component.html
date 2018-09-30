@@ -33,7 +33,7 @@
           <mat-header-cell mat-header-cell *matHeaderCellDef> Cantidad a ajustar</mat-header-cell>
           <mat-cell *matCellDef="let element">
             <input type="number" [value]="element.cantidad" [(ngModel)]="element.cantidad"
-            [step]="0.01" [ngModelOptions]="{standalone: true}">
+            [step]="0.01" [ngModelOptions]="{standalone: true}" min="0.01">
           </mat-cell>
         </ng-container>
 
