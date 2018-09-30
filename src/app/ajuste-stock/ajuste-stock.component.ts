@@ -75,7 +75,8 @@ export class AjusteStockComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       //agrego insumo a la tabla
-      if(result) {
+      if(result && this.dataSource.data.findIndex(d => d.id === result.id)) {
+        console.log("agrego item a la tabla");
         this.dataSource.data.push(result);
         this.dataSource = new MatTableDataSource<InsumoMenu>(this.dataSource.data);
       }
