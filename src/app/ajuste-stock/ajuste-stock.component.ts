@@ -75,8 +75,10 @@ export class AjusteStockComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       //agrego insumo a la tabla
-      this.dataSource.data.push(result);
-      this.dataSource = new MatTableDataSource<InsumoMenu>(this.dataSource.data);
+      if(result) {
+        this.dataSource.data.push(result);
+        this.dataSource = new MatTableDataSource<InsumoMenu>(this.dataSource.data);
+      }
     });
   }
 
