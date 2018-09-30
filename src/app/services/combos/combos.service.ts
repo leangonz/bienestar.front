@@ -18,7 +18,7 @@ const httpOptions = {
 })
 export class CombosService {
 
-  url = 'http://localhost:8080/comboMenue';
+  host = 'http://localhost:8080';
   private handleError: HandleError;
 
   constructor(private http: HttpClient,  httpErrorHandler: HttpErrorHandlerService) { 
@@ -26,9 +26,16 @@ export class CombosService {
   }
 
   getMenues (): Observable<Combo[]> {
-    return this.http.get<Combo[]>(this.url)
+    return this.http.get<Combo[]>(this.host + '/comboMenue')
       .pipe(
         catchError(this.handleError('getMenues', []))
+      );
+  }
+
+  getMotivos (): Observable<Combo[]> {
+    return this.http.get<Combo[]>(this.host + '/comboMotivo')
+      .pipe(
+        catchError(this.handleError('getMotivos', []))
       );
   }
 }
