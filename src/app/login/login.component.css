@@ -1,0 +1,16 @@
+.form {
+    width: 100%;
+  }
+.form-group
+{
+  margin: 10px;
+  width: 300px;
+  }
+
+.page_title
+{
+  width: 100%;
+  color: white;
+  background: blue;
+
+    }
