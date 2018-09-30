@@ -1,65 +1,63 @@
-<div class="form">
-  <p>holaaaaaaaa
-    <p>
-  <mat-form-field class="margin">
-    <input matInput [matDatepicker]="picker" placeholder="Fecha">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
-  <section class="section">
+<body class="mat-app-background">
+  <form [formGroup]="ajusteGroup" (ngSubmit)="guardar()">
+    <mat-form-field class="fecha">
+      <input matInput [matDatepicker]="picker" placeholder="Fecha" formControlName="fecha">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <section>
       <mat-form-field class="combo">
-          <input type="text" placeholder="Motivo" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
-          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+          <input type="text" placeholder="Motivo" aria-label="Number" matInput formControlName="motivos" [matAutocomplete]="auto">
+          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayMotivos">
             <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-              {{option}}
+              {{option.descripcion}}
             </mat-option>
           </mat-autocomplete>
         </mat-form-field>
   </section>
-
   <section>
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-        <!-- Checkbox Column -->
-        <ng-container matColumnDef="select">
-          <th mat-header-cell *matHeaderCellDef>
-            <mat-checkbox (change)="$event ? masterToggle() : null"
-                          [checked]="selection.hasValue() && isAllSelected()"
-                          [indeterminate]="selection.hasValue() && !isAllSelected()">
-            </mat-checkbox>
-          </th>
-          <td mat-cell *matCellDef="let row">
-            <mat-checkbox (click)="$event.stopPropagation()"
-                          (change)="$event ? selection.toggle(row) : null"
-                          [checked]="selection.isSelected(row)">
-            </mat-checkbox>
-          </td>
-        </ng-container>
-
-        <!-- Position Column -->
+  
+    <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <!-- Insumo Column -->
         <ng-container matColumnDef="insumo">
-          <th mat-header-cell *matHeaderCellDef> Insumo </th>
-          <td mat-cell *matCellDef="let element"> {{element.insumo}} </td>
+          <mat-header-cell *matHeaderCellDef> Insumo </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.descripcion}} </mat-cell>
         </ng-container>
-
-        <!-- Name Column -->
+      
+        <!-- Cantidad Column -->
         <ng-container matColumnDef="cantidad">
-          <th mat-header-cell *matHeaderCellDef> Cantidad </th>
-          <td mat-cell *matCellDef="let element"> {{element.cantidad}} </td>
+          <mat-header-cell mat-header-cell *matHeaderCellDef> Cantidad a ajustar</mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <input type="number" [value]="element.cantidad" [(ngModel)]="element.cantidad"
+            [step]="0.01" [ngModelOptions]="{standalone: true}">
+          </mat-cell>
         </ng-container>
-
-        <!-- Weight Column -->
+      
+        <!-- Unidad de medida Column -->
         <ng-container matColumnDef="unidadMedida">
-          <th mat-header-cell *matHeaderCellDef> Unidad de medida </th>
-          <td mat-cell *matCellDef="let element"> {{element.unidadMedida}} </td>
+          <mat-header-cell mat-header-cell *matHeaderCellDef> Unidad de medida </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.unidadDeMedida}} </mat-cell>
+        </ng-container>
+      
+        <!-- Delete Column -->
+        <ng-container matColumnDef="delete">
+          <mat-header-cell mat-header-cell *matHeaderCellDef></mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <button mat-button (click)="borrarInsumo(element.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-cell>
         </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"
-            (click)="selection.toggle(row)">
-        </tr>
-      </table>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;">
+        </mat-row>
+      </mat-table>
   </section>
   <div class="button-row">
-  <button mat-stroked-button color="primary">Guardar</button>
+    <button class="submit-btn" color="primary" mat-raised-button type="submit" [disabled]="!ajusteGroup.valid">Guardar</button>
+    <button mat-raised-button (click)="openDialog()">Agregar Insumo</button>
 </div>
-</div>
+  </form>
+</body>
