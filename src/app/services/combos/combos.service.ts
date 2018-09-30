@@ -33,7 +33,7 @@ export class CombosService {
   }
 
   getMotivos (): Observable<Combo[]> {
-    return this.http.get<Combo[]>(this.host + '/comboMotivo')
+    return this.http.get<Combo[]>(this.host + '/comboMotivosAjustables')
       .pipe(
         catchError(this.handleError('getMotivos', []))
       );
