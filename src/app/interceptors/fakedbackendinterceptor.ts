@@ -5,13 +5,23 @@ import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
  
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
- 
-    constructor() { }
+
+    users: any[];
+
+    constructor() { 
+        console.log("constructor interceptor");
+        this.users = [];
+        this.users.push({username:"vane", password: "pato"});
+        this.users.push({username:"lean", password: "nopato"});
+        console.log("users created by me " + this.users);
+        localStorage.setItem('users', JSON.stringify(this.users));
+    }
  
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         // array in local storage for registered users
+        console.log("method intercep");
         let users: any[] = JSON.parse(localStorage.getItem('users')) || [];
-        
+        console.log("users from localStorage" + users);
         // wrap in delayed observable to simulate server api call
         return of(null).pipe(mergeMap(() => {
  
@@ -19,6 +29,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             if (request.url.endsWith('/users/authenticate') && request.method === 'POST') {
                 // find if any user matches login credentials
                 let filteredUsers = users.filter(user => {
+                    console.log(user);
                     return user.username === request.body.username && user.password === request.body.password;
                 });
  
@@ -37,8 +48,9 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                 } else {
                     // else return 400 bad request
 
-                    users.push(request.body);
-                    localStorage.setItem('users', JSON.stringify(users));
+                    //users.push(request.body);
+                    //localStorage.setItem('users', JSON.stringify(users));
+                    console.log("credenciales incorrectas");
                     return throwError({ error: { message: 'Username or password is incorrect' } });
                 }
             }
