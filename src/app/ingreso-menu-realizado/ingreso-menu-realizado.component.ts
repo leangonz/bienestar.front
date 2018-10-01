@@ -88,7 +88,10 @@ export class IngresoMenuRealizadoComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       //agrego insumo a la tabla
-      if(result && this.dataSource.data.findIndex(d => d.id === result.id)){
+      console.log("id de insumo " + result.id);
+      var isNotDuplicated = this.dataSource.data.findIndex(d => d.id === result.id) == -1;
+      console.log("valor de variable " + isNotDuplicated);
+      if(result && isNotDuplicated){
         this.dataSource.data.push(result);
         this.dataSource = new MatTableDataSource<InsumoMenu>(this.dataSource.data);
       }
