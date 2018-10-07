@@ -1,0 +1,61 @@
+<body class="mat-app-background">
+  <div class="page_title">
+    <h2 class="margin_title"> Gestión proveedores</h2>
+  </div>
+
+  <form [formGroup]="proveedorGroup" (ngSubmit)="guardar()">
+    <section class="section">
+      <mat-form-field>
+        <input matInput placeholder="Nombre" formControlName="nombre">
+      </mat-form-field>
+    </section>
+    <section class="section">
+      <mat-form-field class="inputNumber">
+        <input matInput type="number" placeholder="Cuit" min="0" formControlName="cuit">
+      </mat-form-field>
+    </section>
+    <section class="section">
+      <mat-form-field>
+        <input matInput placeholder="Calle" formControlName="calle">
+      </mat-form-field>
+
+      <mat-form-field class="inputNumber">
+        <input matInput type="number" placeholder="Altura" min="0" formControlName="altura">
+      </mat-form-field>
+    </section>
+    <section>
+      <mat-form-field class="combo">
+        <input type="text" placeholder="Localidad" aria-label="Number" matInput formControlName="localidad" [matAutocomplete]="autoLocalidad">
+        <mat-autocomplete autoActiveFirstOption #autoLocalidad="matAutocomplete" [displayWith]="displayCombo">
+          <mat-option *ngFor="let item of localidadOptions | async" [value]="item">
+            {{item.descripcion}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </section>
+    <section class="section">
+      <mat-form-field>
+        <input matInput placeholder="Mail" formControlName="mail">
+      </mat-form-field>
+
+      <mat-form-field class="inputNumber">
+        <input matInput type="number" placeholder="Telefono" min="0" formControlName="telefono">
+      </mat-form-field>
+    </section>
+    <section class="section">
+      <mat-form-field class="inputNumber">
+        <input matInput placeholder="Contacto" formControlName="contacto">
+      </mat-form-field>
+    </section>
+    <section>
+      <mat-form-field class="combo">
+        <input type="text" placeholder="Forma de Pago" aria-label="Number" matInput formControlName="formaDePago" [matAutocomplete]="autoFormaPago">
+        <mat-autocomplete autoActiveFirstOption #autoFormaPago="matAutocomplete" [displayWith]="displayCombo">
+          <mat-option *ngFor="let option of formasDePagoOptions | async" [value]="option">
+            {{option.descripcion}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </section>
+  </form>
+</body>

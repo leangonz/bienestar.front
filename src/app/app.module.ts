@@ -18,6 +18,7 @@ import { IngresoMenuRealizadoComponent } from './ingreso-menu-realizado/ingreso-
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { AjusteStockComponent } from 'src/app/ajuste-stock/ajuste-stock.component';
 import { BuscadorInsumosComponent } from './buscador-insumos/buscador-insumos.component';
+import { ProveedoresComponent } from './proveedores/proveedores.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { BuscadorInsumosComponent } from './buscador-insumos/buscador-insumos.co
     LoginComponent,
     IngresoMenuRealizadoComponent,
     AjusteStockComponent,
-    BuscadorInsumosComponent
+    BuscadorInsumosComponent,
+    ProveedoresComponent
   ],
   imports: [
     FormsModule,

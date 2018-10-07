@@ -38,4 +38,18 @@ export class CombosService {
         catchError(this.handleError('getMotivos', []))
       );
   }
+
+  getLocalidades (): Observable<Combo[]> {
+    return this.http.get<Combo[]>(this.host + '/comboLocalidades')
+      .pipe(
+        catchError(this.handleError('getLocalidades', []))
+      );
+  }
+
+  getFormasDePago (): Observable<Combo[]> {
+    return this.http.get<Combo[]>(this.host + '/comboFormaDePago')
+      .pipe(
+        catchError(this.handleError('getFormasDePago', []))
+      );
+  }
 }
