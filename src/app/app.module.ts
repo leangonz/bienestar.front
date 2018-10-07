@@ -19,6 +19,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import { AjusteStockComponent } from 'src/app/ajuste-stock/ajuste-stock.component';
 import { BuscadorInsumosComponent } from './buscador-insumos/buscador-insumos.component';
 import { ProveedoresComponent } from './proveedores/proveedores.component';
+import { StockComponent } from './stock/stock.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ProveedoresComponent } from './proveedores/proveedores.component';
     IngresoMenuRealizadoComponent,
     AjusteStockComponent,
     BuscadorInsumosComponent,
-    ProveedoresComponent
+    ProveedoresComponent,
+    StockComponent
   ],
   imports: [
     FormsModule,

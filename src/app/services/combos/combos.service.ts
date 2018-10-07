@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
-import { HttpErrorHandlerService, HandleError } from 'src/app/http-error-handler.service';
+import { HttpErrorHandlerService, HandleError } from '../../http-error-handler.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { catchError } from 'rxjs/internal/operators/catchError';
-import { Combo } from 'src/app/model/combo';
+import { Combo } from '../../model/combo';
 
 
 const httpOptions = {
@@ -50,6 +50,13 @@ export class CombosService {
     return this.http.get<Combo[]>(this.host + '/comboFormaDePago')
       .pipe(
         catchError(this.handleError('getFormasDePago', []))
+      );
+  }
+
+  getInsumos (): Observable<Combo[]> {
+    return this.http.get<Combo[]>(this.host + '/comboInsumos')
+      .pipe(
+        catchError(this.handleError('getInsumos', []))
       );
   }
 }

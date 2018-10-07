@@ -6,12 +6,12 @@ import { startWith } from 'rxjs/internal/operators/startWith';
 import { map } from 'rxjs/internal/operators/map';
 import { MatTableDataSource, MatDialog } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
-import { CombosService } from 'src/app/services/combos/combos.service';
-import { InsumoService } from 'src/app/services/insumos/insumo.service';
-import { Combo } from 'src/app/model/combo';
-import { InsumoMenu } from 'src/app/model/insumo';
-import { BuscadorInsumosComponent } from 'src/app/buscador-insumos/buscador-insumos.component';
-import { MenuRealizado } from 'src/app/model/menuRealizado';
+import { CombosService } from '../services/combos/combos.service';
+import { InsumoService } from '../services/insumos/insumo.service';
+import { Combo } from '../model/combo';
+import { InsumoMenu } from '../model/insumo';
+import { BuscadorInsumosComponent } from '../buscador-insumos/buscador-insumos.component';
+import { MenuRealizado } from '../model/menuRealizado';
 
 @Component({
   selector: 'app-ingreso-menu-realizado',

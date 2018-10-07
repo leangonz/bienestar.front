@@ -1,0 +1,16 @@
+<body class="mat-app-background">
+  <div class="page_title">
+    <h2 class="margin_title">Stock actual</h2>
+  </div>
+  <section>
+    <mat-form-field class="combo">
+      <input type="text" placeholder="Insumo" aria-label="Number" matInput formControlName="filterControl" [matAutocomplete]="auto">
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayCombo"
+                        (optionSelected)='getStock($event.option.value.id)'>
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+          {{option.descripcion}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </section>
+</body>
