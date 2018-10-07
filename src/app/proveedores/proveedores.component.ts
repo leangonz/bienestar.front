@@ -4,6 +4,8 @@ import { Combo } from '../model/combo';
 import { Observable } from 'rxjs';
 import { CombosService } from '../services/combos/combos.service';
 import { startWith, map } from 'rxjs/operators';
+import { ProveedoresService } from '../services/proveedores/proveedores.service';
+import { Proveedor } from '../model/proveedor';
 
 @Component({
   selector: 'app-proveedores',
@@ -18,7 +20,10 @@ export class ProveedoresComponent implements OnInit {
     calle: new FormControl('', Validators.required),
     altura: new FormControl('', Validators.required),
     localidad: new FormControl('', Validators.required),
-    mail: new FormControl('', Validators.required),
+    mail: new FormControl('', [
+      Validators.required,
+      Validators.email,
+    ]),
     telefono: new FormControl('', Validators.required),
     contacto: new FormControl('', Validators.required),
     formaDePago: new FormControl('', Validators.required)
@@ -30,7 +35,7 @@ export class ProveedoresComponent implements OnInit {
   formasDePagoOptions: Observable<Combo[]>;
   formasDePago: Combo[];
 
-  constructor(private comboService: CombosService) { }
+  constructor(private comboService: CombosService, private proveedorService: ProveedoresService) { }
 
   ngOnInit() {
     this.getLocalidades();
@@ -74,6 +79,22 @@ export class ProveedoresComponent implements OnInit {
   }
 
   guardar(): void {
+    var dtoToSend = {} as Proveedor ;
+    dtoToSend.nombre = this.proveedorGroup.get("nombre").value;
+    dtoToSend.cuit = this.proveedorGroup.get("cuit").value;
+    dtoToSend.calle = this.proveedorGroup.get("calle").value;
+    dtoToSend.altura = this.proveedorGroup.get("altura").value;
+    dtoToSend.localidad = this.proveedorGroup.get("localidad").value.id;
+    dtoToSend.mail = this.proveedorGroup.get("mail").value;
+    dtoToSend.telefono = this.proveedorGroup.get("telefono").value;
+    dtoToSend.contacto = this.proveedorGroup.get("contacto").value;
+    dtoToSend.formaDePago = this.proveedorGroup.get("formaDePago").value.id;
 
+    console.log(dtoToSend);
+
+    this.proveedorService.guardarProveedor(dtoToSend)
+      .subscribe(resultado => {
+        console.log(resultado);
+      });
   }
 }

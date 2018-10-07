@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HandleError, HttpErrorHandlerService } from 'src/app/http-error-handler.service';
+import { HandleError, HttpErrorHandlerService } from '../../http-error-handler.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import { catchError } from 'rxjs/internal/operators/catchError';
 import { HttpHeaders } from '@angular/common/http';
-import { InsumoMenu } from 'src/app/model/insumo';
+import { InsumoMenu } from '../../model/insumo';
 
 const httpOptions = {
   headers: new HttpHeaders({
