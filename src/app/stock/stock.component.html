@@ -4,13 +4,13 @@
   </div>
   <section>
     <mat-form-field class="combo">
-      <input type="text" placeholder="Insumo" aria-label="Number" matInput formControlName="filterControl" [matAutocomplete]="auto">
-      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayCombo"
-                        (optionSelected)='getStock($event.option.value.id)'>
+      <input type="text" placeholder="Insumo" aria-label="Number" matInput [formControl]="filterControl" [matAutocomplete]="auto">
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayCombo">
         <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
           {{option.descripcion}}
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
+    <button mat-raised-button mat-button color="primary" (click)="traerStock()" type="button">Filtrar</button>
   </section>
 </body>

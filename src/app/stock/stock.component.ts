@@ -4,6 +4,7 @@ import { Combo } from '../model/combo';
 import { Observable } from 'rxjs';
 import { CombosService } from '../services/combos/combos.service';
 import { startWith, map } from 'rxjs/operators';
+import { StockService } from '../services/stock/stock.service';
 
 @Component({
   selector: 'app-stock',
@@ -16,7 +17,7 @@ export class StockComponent implements OnInit {
   filteredOptions: Observable<Combo[]>;
   insumos: Combo[];
 
-  constructor(private comboService: CombosService) { }
+  constructor(private comboService: CombosService, private stockService: StockService) { }
 
   ngOnInit() {
     this.getInsumos();
@@ -43,5 +44,11 @@ export class StockComponent implements OnInit {
     const filterValue = descripcion.toLowerCase();
 
     return this.insumos.filter(option => option.descripcion.toLowerCase().includes(filterValue));
+  }
+
+  traerStock(): void {
+    this.stockService.consultarStock(this.filterControl.value.id).subscribe(stock => {
+      console.log(stock);
+    });
   }
 }
