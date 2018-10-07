@@ -24,10 +24,10 @@ export class StockService {
       );
   }
 
-  consultarStock (idInsumo): Observable<Stock[]> {
-    return this.http.post<Stock[]>(this.host + '/consultarStock', idInsumo)
+  consultarStock (idInsumo): Observable<Stock> {
+    return this.http.post<Stock>(this.host + '/consultarStock', idInsumo)
       .pipe(
-        catchError(this.handleError('consultarStock', []))
+        catchError(this.handleError('consultarStock', null))
       );
   }
 }

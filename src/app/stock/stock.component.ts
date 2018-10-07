@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { CombosService } from '../services/combos/combos.service';
 import { startWith, map } from 'rxjs/operators';
 import { StockService } from '../services/stock/stock.service';
+import { MatTableDataSource } from '@angular/material';
+import { Stock } from '../model/stock';
 
 @Component({
   selector: 'app-stock',
@@ -17,6 +19,9 @@ export class StockComponent implements OnInit {
   filteredOptions: Observable<Combo[]>;
   insumos: Combo[];
 
+  displayedColumns: string[] = ['insumo', 'cantidadActual', 'cantidadMinima', 'unidadMedida'];
+  dataSource = new MatTableDataSource<Stock>();
+  
   constructor(private comboService: CombosService, private stockService: StockService) { }
 
   ngOnInit() {
@@ -47,8 +52,11 @@ export class StockComponent implements OnInit {
   }
 
   traerStock(): void {
-    this.stockService.consultarStock(this.filterControl.value.id).subscribe(stock => {
-      console.log(stock);
-    });
+    if(this.filterControl.value){
+      this.stockService.consultarStock(this.filterControl.value.id).subscribe(stock => {
+        console.log(stock);
+        this.dataSource = new MatTableDataSource<Stock>([stock]);
+      });
+    }
   }
 }

@@ -13,4 +13,35 @@
     </mat-form-field>
     <button mat-raised-button mat-button color="primary" (click)="traerStock()" type="button">Filtrar</button>
   </section>
+  <section>
+    <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <!-- Insumo Column -->
+        <ng-container matColumnDef="insumo">
+          <mat-header-cell *matHeaderCellDef> Insumo </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.insumo}} </mat-cell>
+        </ng-container>
+
+        <!-- Cantidad Column -->
+        <ng-container matColumnDef="cantidadActual">
+          <mat-header-cell mat-header-cell *matHeaderCellDef> Cantidad actual </mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.actual}}</mat-cell>
+        </ng-container>
+
+        <!-- Cantidad Column -->
+        <ng-container matColumnDef="cantidadMinima">
+            <mat-header-cell mat-header-cell *matHeaderCellDef> Cantidad minima </mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.cantidadMinima}}</mat-cell>
+          </ng-container>
+
+        <!-- Unidad de medida Column -->
+        <ng-container matColumnDef="unidadMedida">
+          <mat-header-cell mat-header-cell *matHeaderCellDef> Unidad de medida </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.unidadMedida}} </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;">
+        </mat-row>
+      </mat-table>
+    </section>
 </body>
