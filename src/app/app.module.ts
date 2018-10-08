@@ -20,6 +20,7 @@ import { AjusteStockComponent } from 'src/app/ajuste-stock/ajuste-stock.componen
 import { BuscadorInsumosComponent } from './buscador-insumos/buscador-insumos.component';
 import { ProveedoresComponent } from './proveedores/proveedores.component';
 import { StockComponent } from './stock/stock.component';
+import { OrdenCompraComponent } from './orden-compra/orden-compra.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { StockComponent } from './stock/stock.component';
     AjusteStockComponent,
     BuscadorInsumosComponent,
     ProveedoresComponent,
-    StockComponent
+    StockComponent,
+    OrdenCompraComponent
   ],
   imports: [
     FormsModule,

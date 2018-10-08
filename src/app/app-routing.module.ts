@@ -7,6 +7,7 @@ import { IngresoMenuRealizadoComponent } from './ingreso-menu-realizado/ingreso-
 import { AjusteStockComponent } from './ajuste-stock/ajuste-stock.component';
 import { ProveedoresComponent } from './proveedores/proveedores.component';
 import { StockComponent } from './stock/stock.component';
+import { OrdenCompraComponent } from './orden-compra/orden-compra.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'ajusteStock', component: AjusteStockComponent },
   { path: 'proveedores', component: ProveedoresComponent },
   { path: 'stock', component: StockComponent },
+  { path: 'compra', component: OrdenCompraComponent },
   // otherwise redirect to home
   { path: '**', redirectTo: '' }
 ];

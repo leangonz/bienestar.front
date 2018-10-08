@@ -53,6 +53,27 @@ export class CombosService {
       );
   }
 
+  getProveedores (): Observable<Combo[]> {
+    return this.http.get<Combo[]>(this.host + '/comboProveedores')
+      .pipe(
+        catchError(this.handleError('getInsumos', []))
+      );
+  }
+
+  getAreas (): Observable<Combo[]> {
+    return this.http.get<Combo[]>(this.host + '/comboAreas')
+      .pipe(
+        catchError(this.handleError('getInsumos', []))
+      );
+  }
+
+  getCategorias (): Observable<Combo[]> {
+    return this.http.get<Combo[]>(this.host + '/comboCategoriaCompra')
+      .pipe(
+        catchError(this.handleError('getInsumos', []))
+      );
+  }
+
   getInsumos (): Observable<Combo[]> {
     return this.http.get<Combo[]>(this.host + '/comboInsumos')
       .pipe(

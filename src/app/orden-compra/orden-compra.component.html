@@ -1,0 +1,52 @@
+<body class="mat-app-background">
+  <div class="page_title">
+    <h2 class="margin_title">Orden de compra</h2>
+  </div>
+  <form [formGroup]="compraGroup" (ngSubmit)="guardar()">
+    <mat-form-field class="fecha">
+      <input matInput [matDatepicker]="picker" placeholder="Fecha" formControlName="fecha">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <section>
+      <mat-form-field class="combo">
+        <input type="text" placeholder="Proveedor" aria-label="Number" matInput formControlName="proveedor" [matAutocomplete]="autoProveedor">
+        <mat-autocomplete autoActiveFirstOption #autoProveedor="matAutocomplete" [displayWith]="displayCombo">
+          <mat-option *ngFor="let item of proveedorOptions | async" [value]="item">
+            {{item.descripcion}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </section>
+    <section>
+      <mat-form-field class="combo">
+        <input type="text" placeholder="Area" aria-label="Number" matInput formControlName="area" [matAutocomplete]="autoArea">
+        <mat-autocomplete autoActiveFirstOption #autoArea="matAutocomplete" [displayWith]="displayCombo">
+          <mat-option *ngFor="let item of areaOptions | async" [value]="item">
+            {{item.descripcion}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </section>
+    <section>
+      <mat-form-field class="combo">
+        <input type="text" placeholder="Categoria" aria-label="Number" matInput formControlName="categoria" [matAutocomplete]="autoCategoria">
+        <mat-autocomplete autoActiveFirstOption #autoCategoria="matAutocomplete" [displayWith]="displayCombo">
+          <mat-option *ngFor="let item of categoriaOptions | async" [value]="item">
+            {{item.descripcion}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </section>
+    <section>
+      <mat-form-field class="combo">
+        <input type="text" placeholder="Insumo" aria-label="Number" matInput formControlName="insumo" [matAutocomplete]="autoInsumo">
+        <mat-autocomplete autoActiveFirstOption #autoInsumo="matAutocomplete" [displayWith]="displayCombo">
+          <mat-option *ngFor="let item of insumoOptions | async" [value]="item">
+            {{item.descripcion}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </section>
+  </form>
+</body>
