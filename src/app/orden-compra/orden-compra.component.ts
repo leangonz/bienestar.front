@@ -4,6 +4,8 @@ import { Combo } from '../model/combo';
 import { Observable } from 'rxjs';
 import { CombosService } from '../services/combos/combos.service';
 import { startWith, map } from 'rxjs/operators';
+import { MatTableDataSource } from '@angular/material';
+import { Compra } from '../model/compra';
 
 @Component({
   selector: 'app-orden-compra',
@@ -17,7 +19,9 @@ export class OrdenCompraComponent implements OnInit {
     proveedor: new FormControl('', Validators.required),
     area: new FormControl('', Validators.required),
     categoria: new FormControl('', Validators.required),
-    insumo: new FormControl('', Validators.required)
+    insumo: new FormControl('', Validators.required),
+    cantidad: new FormControl('', Validators.required),
+    precioUnitario: new FormControl('', Validators.required)
   });
 
   proveedorOptions: Observable<Combo[]>;
@@ -32,6 +36,9 @@ export class OrdenCompraComponent implements OnInit {
   insumoOptions: Observable<Combo[]>;
   insumos: Combo[];
   
+  displayedColumns: string[] = ['insumo', 'cantidad', 'precioUnitario', 'precioTotal'];
+  dataSource = new MatTableDataSource<Compra>();
+
   constructor(private comboService: CombosService) { }
 
   ngOnInit() {
@@ -101,5 +108,15 @@ export class OrdenCompraComponent implements OnInit {
 
   displayCombo(combo: Combo) {
     if (combo) { return combo.descripcion; }
+  }
+
+  agregarItem(): void {
+    var item = {} as Compra;
+    item.cantidad = this.compraGroup.get("cantidad").value;
+    item.insumo = this.compraGroup.get("insumo").value.id;
+    item.precioUnitario = this.compraGroup.get("precioUnitario").value;
+    item.precioTotal = item.cantidad * item.precioUnitario;
+    this.dataSource.data.push(item);
+    this.dataSource = new MatTableDataSource<Compra>(this.dataSource.data); 
   }
 }

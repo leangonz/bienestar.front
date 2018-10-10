@@ -48,5 +48,49 @@
         </mat-autocomplete>
       </mat-form-field>
     </section>
+    <section class="section">
+      <mat-form-field class="inputNumber">
+        <input matInput type="number" placeholder="Cantidad" min="0" formControlName="cantidad">
+      </mat-form-field>
+
+      <mat-form-field class="inputNumber">
+        <input matInput type="number" placeholder="Precio unitario" [step]="0.01" min="0.01" formControlName="precioUnitario">
+      </mat-form-field>
+    </section>
+    <section class="section">
+    <button mat-raised-button mat-button color="primary" (click)="agregarItem()" type="button"
+      [disabled]="!compraGroup.valid">Agregar</button>
+    </section>
+    <section>
+      <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+          <!-- Insumo Column -->
+          <ng-container matColumnDef="insumo">
+            <mat-header-cell *matHeaderCellDef> Insumo </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.insumo}} </mat-cell>
+          </ng-container>
+  
+          <!-- Cantidad Column -->
+          <ng-container matColumnDef="cantidad">
+            <mat-header-cell mat-header-cell *matHeaderCellDef> Cantidad </mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.cantidad}}</mat-cell>
+          </ng-container>
+  
+          <!-- Cantidad Column -->
+          <ng-container matColumnDef="precioUnitario">
+              <mat-header-cell mat-header-cell *matHeaderCellDef> Precio unitario </mat-header-cell>
+              <mat-cell *matCellDef="let element">{{element.precioUnitario}}</mat-cell>
+            </ng-container>
+  
+          <!-- Unidad de medida Column -->
+          <ng-container matColumnDef="precioTotal">
+            <mat-header-cell mat-header-cell *matHeaderCellDef> Precio total </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.precioTotal}} </mat-cell>
+          </ng-container>
+  
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;">
+          </mat-row>
+        </mat-table>
+      </section>
   </form>
 </body>
