@@ -5,7 +5,9 @@ import { Observable } from 'rxjs';
 import { CombosService } from '../services/combos/combos.service';
 import { startWith, map } from 'rxjs/operators';
 import { MatTableDataSource } from '@angular/material';
+import { CompraItem } from '../model/compraItem';
 import { Compra } from '../model/compra';
+import { ComprasService } from '../services/compras/compras.service';
 
 @Component({
   selector: 'app-orden-compra',
@@ -37,9 +39,9 @@ export class OrdenCompraComponent implements OnInit {
   insumos: Combo[];
   
   displayedColumns: string[] = ['insumo', 'cantidad', 'precioUnitario', 'precioTotal'];
-  dataSource = new MatTableDataSource<Compra>();
+  dataSource = new MatTableDataSource<CompraItem>();
 
-  constructor(private comboService: CombosService) { }
+  constructor(private comboService: CombosService, private comprasService: ComprasService) { }
 
   ngOnInit() {
     this.getProveedores();
@@ -111,12 +113,28 @@ export class OrdenCompraComponent implements OnInit {
   }
 
   agregarItem(): void {
-    var item = {} as Compra;
+    var item = {} as CompraItem;
     item.cantidad = this.compraGroup.get("cantidad").value;
     item.insumo = this.compraGroup.get("insumo").value.id;
     item.precioUnitario = this.compraGroup.get("precioUnitario").value;
     item.precioTotal = item.cantidad * item.precioUnitario;
     this.dataSource.data.push(item);
-    this.dataSource = new MatTableDataSource<Compra>(this.dataSource.data); 
+    this.dataSource = new MatTableDataSource<CompraItem>(this.dataSource.data); 
   }
+
+  guardar(): void {
+    var dtoToSend = {} as Compra ;
+    dtoToSend.fecha = this.compraGroup.get("fecha").value;
+    dtoToSend.proveedor = this.compraGroup.get("proveedor").value.id;
+    dtoToSend.area = this.compraGroup.get("area").value.id;
+    dtoToSend.categoria = this.compraGroup.get("categoria").value.id;
+    dtoToSend.items = this.dataSource.data;
+    console.log(dtoToSend);
+
+    this.comprasService.guardarCompra(dtoToSend)
+      .subscribe(resultado => {
+        console.log(resultado);
+      });
+  }
+
 }

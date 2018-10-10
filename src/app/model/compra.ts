@@ -1,6 +1,9 @@
+import { CompraItem } from "./compraItem";
+
 export interface Compra {
-    insumo: number;
-    cantidad: number;
-    precioUnitario: number;
-    precioTotal: number;
+    fecha: string,
+    proveedor: string,
+    area: string,
+    categoria: string,
+    items: CompraItem[]
   }
