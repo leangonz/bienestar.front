@@ -23,7 +23,7 @@ export class ComprasService {
   }
 
   guardarCompra (data): Observable<Boolean> {
-    return this.http.post<Boolean>(this.host + '/cargarOrdenCompra', data)
+    return this.http.post<Boolean>(this.host + '/cargarCompra', data)
       .pipe(
         catchError(this.handleError('guardarCompra', false))
       );
