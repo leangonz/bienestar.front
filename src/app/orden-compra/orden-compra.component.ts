@@ -123,14 +123,25 @@ export class OrdenCompraComponent implements OnInit {
       item.precioUnitario = this.compraGroup.get("precioUnitario").value;
       item.precioTotal = item.cantidad * item.precioUnitario;
       this.dataSource.data.push(item);
-      this.dataSource = new MatTableDataSource<CompraItem>(this.dataSource.data); 
+      this.dataSource = new MatTableDataSource<CompraItem>(this.dataSource.data);
     }
+    this.reiniciarCampos();
+  }
+
+  private reiniciarCampos(){
+    this.compraGroup.get("cantidad").reset('');
+    this.compraGroup.get("insumo").reset('');
+    this.compraGroup.get("precioUnitario").reset('');
   }
 
   borrarItem(idItem): void {
     let index: number = this.dataSource.data.findIndex(d => d.insumo === idItem);
     this.dataSource.data.splice(index,1);
     this.dataSource = new MatTableDataSource<CompraItem>(this.dataSource.data);
+  }
+
+  isEmptyTable() : Boolean {
+    return this.dataSource.data.length == 0;
   }
 
   guardar(): void {
