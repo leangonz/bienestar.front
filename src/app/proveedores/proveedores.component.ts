@@ -98,8 +98,10 @@ export class ProveedoresComponent implements OnInit {
     this.proveedorService.guardarProveedor(dtoToSend)
       .subscribe(resultado => {
         console.log(resultado);
-        this.reiniciarForm();
-        this.openSnackBar("Se creó el proveedor " + dtoToSend.nombre ,"OK");
+        if(resultado){
+          this.reiniciarForm();
+          this.openSnackBar("Se creó el proveedor " + dtoToSend.nombre ,"OK");
+        }
       });
   }
 
