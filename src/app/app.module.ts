@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule }    from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule, MatCheckboxModule, MatDatepickerModule, MatNativeDateModule, MatInputModule, MatAutocompleteModule, MatTableModule, MatSidenavModule, MatToolbarModule, MatIconModule, MatListModule, MatDialogModule} from '@angular/material';
+import {MatButtonModule, MatCheckboxModule, MatDatepickerModule, MatNativeDateModule, MatInputModule, MatAutocompleteModule, MatTableModule, MatSidenavModule, MatToolbarModule, MatIconModule, MatListModule, MatDialogModule, MatSnackBarModule} from '@angular/material';
 import {MatFormFieldModule} from '@angular/material/form-field';
 
 import { AppComponent } from './app.component';
@@ -45,7 +45,8 @@ import { OrdenCompraComponent } from './orden-compra/orden-compra.component';
     MatButtonModule, MatCheckboxModule,MatDatepickerModule,
     MatNativeDateModule, MatFormFieldModule,MatInputModule,
     MatAutocompleteModule, MatTableModule,MatSidenavModule,
-    MatToolbarModule, MatIconModule,MatListModule,MatDialogModule
+    MatToolbarModule, MatIconModule,MatListModule,MatDialogModule,
+    MatSnackBarModule
   ],
   entryComponents: [BuscadorInsumosComponent],
   providers: [AuthGuard,AuthenticationService,

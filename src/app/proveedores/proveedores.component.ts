@@ -6,6 +6,7 @@ import { CombosService } from '../services/combos/combos.service';
 import { startWith, map } from 'rxjs/operators';
 import { ProveedoresService } from '../services/proveedores/proveedores.service';
 import { Proveedor } from '../model/proveedor';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-proveedores',
@@ -36,7 +37,8 @@ export class ProveedoresComponent implements OnInit {
   formasDePagoOptions: Observable<Combo[]>;
   formasDePago: Combo[];
 
-  constructor(private comboService: CombosService, private proveedorService: ProveedoresService) { }
+  constructor(private comboService: CombosService, private proveedorService: ProveedoresService,
+    public snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.getLocalidades();
@@ -97,6 +99,7 @@ export class ProveedoresComponent implements OnInit {
       .subscribe(resultado => {
         console.log(resultado);
         this.reiniciarForm();
+        this.openSnackBar("Se creó el proveedor " + dtoToSend.nombre ,"OK");
       });
   }
 
@@ -107,4 +110,9 @@ export class ProveedoresComponent implements OnInit {
     });
   }
 
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 5000,
+    });
+  }
 }
