@@ -38,7 +38,7 @@ export class OrdenCompraComponent implements OnInit {
   insumoOptions: Observable<Combo[]>;
   insumos: Combo[];
   
-  displayedColumns: string[] = ['insumo', 'cantidad', 'precioUnitario', 'precioTotal'];
+  displayedColumns: string[] = ['insumo', 'cantidad', 'precioUnitario', 'precioTotal', 'delete'];
   dataSource = new MatTableDataSource<CompraItem>();
 
   constructor(private comboService: CombosService, private comprasService: ComprasService) { }
@@ -120,6 +120,12 @@ export class OrdenCompraComponent implements OnInit {
     item.precioTotal = item.cantidad * item.precioUnitario;
     this.dataSource.data.push(item);
     this.dataSource = new MatTableDataSource<CompraItem>(this.dataSource.data); 
+  }
+
+  borrarItem(idItem): void {
+    let index: number = this.dataSource.data.findIndex(d => d.insumo === idItem);
+    this.dataSource.data.splice(index,1);
+    this.dataSource = new MatTableDataSource<CompraItem>(this.dataSource.data);
   }
 
   guardar(): void {

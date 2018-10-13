@@ -87,6 +87,16 @@
             <mat-cell *matCellDef="let element"> {{element.precioTotal}} </mat-cell>
           </ng-container>
   
+           <!-- Delete Column -->
+           <ng-container matColumnDef="delete">
+            <mat-header-cell mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <button mat-button (click)="borrarItem(element.id)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </mat-cell>
+          </ng-container>
+
           <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
           <mat-row *matRowDef="let row; columns: displayedColumns;">
           </mat-row>
