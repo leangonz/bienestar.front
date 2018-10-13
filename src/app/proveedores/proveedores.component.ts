@@ -14,6 +14,7 @@ import { Proveedor } from '../model/proveedor';
 })
 export class ProveedoresComponent implements OnInit {
 
+  mailRegex = '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$';
   proveedorGroup = new FormGroup({
     nombre: new FormControl('', Validators.required),
     cuit: new FormControl('', Validators.required),
@@ -22,7 +23,7 @@ export class ProveedoresComponent implements OnInit {
     localidad: new FormControl('', Validators.required),
     mail: new FormControl('', [
       Validators.required,
-      Validators.email,
+      Validators.pattern(this.mailRegex),
     ]),
     telefono: new FormControl('', Validators.required),
     contacto: new FormControl('', Validators.required),
