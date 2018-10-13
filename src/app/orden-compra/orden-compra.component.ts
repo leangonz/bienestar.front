@@ -4,7 +4,7 @@ import { Combo } from '../model/combo';
 import { Observable } from 'rxjs';
 import { CombosService } from '../services/combos/combos.service';
 import { startWith, map } from 'rxjs/operators';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource, MatSnackBar } from '@angular/material';
 import { CompraItem } from '../model/compraItem';
 import { Compra } from '../model/compra';
 import { ComprasService } from '../services/compras/compras.service';
@@ -41,7 +41,8 @@ export class OrdenCompraComponent implements OnInit {
   displayedColumns: string[] = ['insumo', 'cantidad', 'precioUnitario', 'precioTotal', 'delete'];
   dataSource = new MatTableDataSource<CompraItem>();
 
-  constructor(private comboService: CombosService, private comprasService: ComprasService) { }
+  constructor(private comboService: CombosService, private comprasService: ComprasService,
+    public snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.getProveedores();
@@ -128,12 +129,6 @@ export class OrdenCompraComponent implements OnInit {
     this.reiniciarCampos();
   }
 
-  private reiniciarCampos(){
-    this.compraGroup.get("cantidad").reset('');
-    this.compraGroup.get("insumo").reset('');
-    this.compraGroup.get("precioUnitario").reset('');
-  }
-
   borrarItem(idItem): void {
     let index: number = this.dataSource.data.findIndex(d => d.insumo === idItem);
     this.dataSource.data.splice(index,1);
@@ -156,7 +151,29 @@ export class OrdenCompraComponent implements OnInit {
     this.comprasService.guardarCompra(dtoToSend)
       .subscribe(resultado => {
         console.log(resultado);
+        if(resultado){
+          this.reiniciarForm();
+          this.openSnackBar("Se registro la compra", "OK");
+        }
       });
   }
 
+  private reiniciarForm(){
+    Object.keys(this.compraGroup.controls).forEach((name) => {
+      this.compraGroup.get(name).reset('');
+      this.compraGroup.get(name).setErrors(null);
+    });
+  }
+
+  private reiniciarCampos(){
+    this.compraGroup.get("cantidad").reset('');
+    this.compraGroup.get("insumo").reset('');
+    this.compraGroup.get("precioUnitario").reset('');
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 5000,
+    });
+  }
 }
