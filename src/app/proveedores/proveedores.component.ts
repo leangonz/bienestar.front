@@ -96,6 +96,15 @@ export class ProveedoresComponent implements OnInit {
     this.proveedorService.guardarProveedor(dtoToSend)
       .subscribe(resultado => {
         console.log(resultado);
+        this.reiniciarForm();
       });
   }
+
+  private reiniciarForm(){
+    Object.keys(this.proveedorGroup.controls).forEach((name) => {
+      this.proveedorGroup.get(name).reset('');
+      this.proveedorGroup.get(name).setErrors(null);
+    });
+  }
+
 }
