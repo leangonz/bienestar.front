@@ -7,7 +7,6 @@ import { startWith, map } from 'rxjs/operators';
 import { ProveedoresService } from '../services/proveedores/proveedores.service';
 import { Proveedor } from '../model/proveedor';
 import { MatSnackBar } from '@angular/material';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-proveedores',
@@ -15,8 +14,6 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
   styleUrls: ['./proveedores.component.css']
 })
 export class ProveedoresComponent implements OnInit {
-
-  @ViewChild(FormGroupDirective) myForm;
   
   mailRegex = '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$';
   proveedorGroup = new FormGroup({

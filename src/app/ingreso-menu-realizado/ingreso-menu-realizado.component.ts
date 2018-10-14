@@ -12,6 +12,7 @@ import { Combo } from '../model/combo';
 import { InsumoMenu } from '../model/insumo';
 import { BuscadorInsumosComponent } from '../buscador-insumos/buscador-insumos.component';
 import { MenuRealizado } from '../model/menuRealizado';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-ingreso-menu-realizado',
@@ -21,7 +22,7 @@ import { MenuRealizado } from '../model/menuRealizado';
 export class IngresoMenuRealizadoComponent implements OnInit {
 
   comensalesGroup = new FormGroup({
-    fecha: new FormControl('', Validators.required),
+    fecha: new FormControl(moment(), Validators.required),
     lactarios: new FormControl('', Validators.required),
     unAnio: new FormControl('', Validators.required),
     dosAnios: new FormControl('', Validators.required),

@@ -4,23 +4,40 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule }    from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule, MatCheckboxModule, MatDatepickerModule, MatNativeDateModule, MatInputModule, MatAutocompleteModule, MatTableModule, MatSidenavModule, MatToolbarModule, MatIconModule, MatListModule, MatDialogModule, MatSnackBarModule} from '@angular/material';
+import {MatButtonModule, MatCheckboxModule, MatDatepickerModule, MatNativeDateModule,
+   MatInputModule, MatAutocompleteModule, MatTableModule,
+    MatSidenavModule, MatToolbarModule, MatIconModule,
+     MatListModule, MatDialogModule, MatSnackBarModule, DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_DATE_LOCALE_FACTORY, MAT_NATIVE_DATE_FORMATS} from '@angular/material';
 import {MatFormFieldModule} from '@angular/material/form-field';
-
+import {MAT_MOMENT_DATE_FORMATS, MomentDateAdapter} from '@angular/material-moment-adapter';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
-import { AuthGuard } from 'src/app/auth.guard';
-import { AuthenticationService } from 'src/app/services/authentication.service';
-import { fakeBackendProvider } from 'src/app/interceptors/fakedbackendinterceptor';
+import { AuthGuard } from './auth.guard';
+import { AuthenticationService } from './services/authentication.service';
+import { fakeBackendProvider } from './interceptors/fakedbackendinterceptor';
 import { IngresoMenuRealizadoComponent } from './ingreso-menu-realizado/ingreso-menu-realizado.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
-import { AjusteStockComponent } from 'src/app/ajuste-stock/ajuste-stock.component';
+import { AjusteStockComponent } from './ajuste-stock/ajuste-stock.component';
 import { BuscadorInsumosComponent } from './buscador-insumos/buscador-insumos.component';
 import { ProveedoresComponent } from './proveedores/proveedores.component';
 import { StockComponent } from './stock/stock.component';
 import { OrdenCompraComponent } from './orden-compra/orden-compra.component';
+
+import * as _moment from 'moment';
+
+export const DD_MM_YYYY_Format = {
+  parse: {
+      dateInput: 'LL',
+  },
+  display: {
+      dateInput: 'DD/MM/YYYY',
+      monthYearLabel: 'MMM YYYY',
+      dateA11yLabel: 'LL',
+      monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
 
 @NgModule({
   declarations: [
@@ -50,8 +67,8 @@ import { OrdenCompraComponent } from './orden-compra/orden-compra.component';
   ],
   entryComponents: [BuscadorInsumosComponent],
   providers: [AuthGuard,AuthenticationService,
-
-    // provider used to create fake backend
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+    {provide: MAT_DATE_FORMATS, useValue: DD_MM_YYYY_Format},
     fakeBackendProvider],
   bootstrap: [AppComponent]
 })
