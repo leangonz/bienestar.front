@@ -30,8 +30,8 @@ export class ComprasService {
       );
   }
 
-  filtrarCompras (idProveedor): Observable<CompraResumen[]> {
-    return this.http.post<CompraResumen[]>(this.host + '/filtrarCompra', idProveedor)
+  filtrarCompras (idProveedor, factura): Observable<CompraResumen[]> {
+    return this.http.post<CompraResumen[]>(this.host + '/filtrarCompra', {idProveedor, factura})
       .pipe(
         catchError(this.handleError('filtrarCompra', []))
       );

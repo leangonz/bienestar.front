@@ -15,6 +15,7 @@ import { CompraResumen } from '../model/compraResumen';
 })
 export class ListadoComprasComponent implements OnInit {
 
+  facturaControl = new FormControl();
   proveedorControl = new FormControl();
   filteredOptions: Observable<Combo[]>;
   proveedores: Combo[];
@@ -52,12 +53,18 @@ export class ListadoComprasComponent implements OnInit {
   }
 
   filtrarCompra(): void {
+    var proveedor;
+    var factura;
     if(this.proveedorControl.value){
-      this.comprasService.filtrarCompras(this.proveedorControl.value.id).subscribe(compras => {
-        console.log(compras);
-        this.dataSource = new MatTableDataSource<CompraResumen>(compras);
-      });
+     proveedor = this.proveedorControl.value.id;
     }
+    if(this.facturaControl.value){
+     factura = this.facturaControl.value;
+    }
+    this.comprasService.filtrarCompras(proveedor, factura).subscribe(compras => {
+      console.log(compras);
+      this.dataSource = new MatTableDataSource<CompraResumen>(compras);
+    });
   }
 
 }

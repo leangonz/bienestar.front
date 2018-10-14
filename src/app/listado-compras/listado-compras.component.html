@@ -3,6 +3,9 @@
     <h2 class="margin_title">Compras</h2>
   </div>
   <section>
+    <mat-form-field>
+        <input matInput placeholder="Factura" [formControl]="facturaControl">
+      </mat-form-field>
     <mat-form-field class="combo">
       <input type="text" placeholder="Proveedor" aria-label="Number" matInput [formControl]="proveedorControl" [matAutocomplete]="auto">
       <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayCombo">
