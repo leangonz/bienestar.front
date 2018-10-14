@@ -8,6 +8,9 @@
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Factura" formControlName="factura">
+    </mat-form-field>
     <section>
       <mat-form-field class="combo">
         <input type="text" placeholder="Proveedor" aria-label="Number" matInput formControlName="proveedor" [matAutocomplete]="autoProveedor">

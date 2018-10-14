@@ -18,6 +18,7 @@ export class OrdenCompraComponent implements OnInit {
 
   compraGroup = new FormGroup({
     fecha: new FormControl('', Validators.required),
+    factura: new FormControl('', Validators.required),
     proveedor: new FormControl('', Validators.required),
     area: new FormControl('', Validators.required),
     categoria: new FormControl('', Validators.required),
@@ -142,6 +143,7 @@ export class OrdenCompraComponent implements OnInit {
   guardar(): void {
     var dtoToSend = {} as Compra ;
     dtoToSend.fecha = this.compraGroup.get("fecha").value;
+    dtoToSend.factura = this.compraGroup.get("factura").value;
     dtoToSend.proveedor = this.compraGroup.get("proveedor").value.id;
     dtoToSend.area = this.compraGroup.get("area").value.id;
     dtoToSend.categoria = this.compraGroup.get("categoria").value.id;
