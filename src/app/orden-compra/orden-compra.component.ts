@@ -136,6 +136,13 @@ export class OrdenCompraComponent implements OnInit {
     this.dataSource = new MatTableDataSource<CompraItem>(this.dataSource.data);
   }
 
+  getTotalCost() {
+    if(this.dataSource.data.length > 0){
+      return this.dataSource.data.map(t => t.precioTotal).reduce((acc, value) => acc + value, 0);
+    }
+    return 0;
+  }
+
   isEmptyTable() : Boolean {
     return this.dataSource.data.length == 0;
   }

@@ -70,24 +70,28 @@
           <ng-container matColumnDef="insumo">
             <mat-header-cell *matHeaderCellDef> Insumo </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.descripcion}} </mat-cell>
+            <mat-footer-cell *matFooterCellDef> Total </mat-footer-cell>
           </ng-container>
   
           <!-- Cantidad Column -->
           <ng-container matColumnDef="cantidad">
             <mat-header-cell mat-header-cell *matHeaderCellDef> Cantidad </mat-header-cell>
             <mat-cell *matCellDef="let element">{{element.cantidad}}</mat-cell>
+            <mat-footer-cell *matFooterCellDef></mat-footer-cell>
           </ng-container>
   
           <!-- Cantidad Column -->
           <ng-container matColumnDef="precioUnitario">
               <mat-header-cell mat-header-cell *matHeaderCellDef> Precio unitario </mat-header-cell>
-              <mat-cell *matCellDef="let element">{{element.precioUnitario}}</mat-cell>
+              <mat-cell *matCellDef="let element">{{element.precioUnitario | currency}}</mat-cell>
+              <mat-footer-cell *matFooterCellDef></mat-footer-cell>
             </ng-container>
   
           <!-- Unidad de medida Column -->
           <ng-container matColumnDef="precioTotal">
             <mat-header-cell mat-header-cell *matHeaderCellDef> Precio total </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.precioTotal}} </mat-cell>
+            <mat-cell *matCellDef="let element"> {{element.precioTotal | currency}} </mat-cell>
+            <mat-footer-cell *matFooterCellDef> {{getTotalCost() | currency}} </mat-footer-cell>
           </ng-container>
   
            <!-- Delete Column -->
@@ -98,11 +102,12 @@
                 <mat-icon>delete</mat-icon>
               </button>
             </mat-cell>
+            <mat-footer-cell *matFooterCellDef></mat-footer-cell>
           </ng-container>
 
           <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: displayedColumns;">
-          </mat-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          <mat-footer-row *matFooterRowDef="displayedColumns"></mat-footer-row>
         </mat-table>
       </section>
       <div class="button-row">
