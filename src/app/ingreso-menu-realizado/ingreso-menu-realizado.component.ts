@@ -4,7 +4,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { Observable } from 'rxjs/internal/Observable';
 import { startWith } from 'rxjs/internal/operators/startWith';
 import { map } from 'rxjs/internal/operators/map';
-import { MatTableDataSource, MatDialog } from '@angular/material';
+import { MatTableDataSource, MatDialog, MatSnackBar } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { CombosService } from '../services/combos/combos.service';
 import { InsumoService } from '../services/insumos/insumo.service';
@@ -38,7 +38,7 @@ export class IngresoMenuRealizadoComponent implements OnInit {
   dataSource = new MatTableDataSource<InsumoMenu>();
 
   constructor(private comboService: CombosService, private insumoService: InsumoService,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.getMenues();
@@ -113,6 +113,26 @@ export class IngresoMenuRealizadoComponent implements OnInit {
     this.insumoService.guardarMenuRealizado(dtoToSend)
       .subscribe(resultado => {
         console.log(resultado);
+        if(resultado){
+          this.reiniciarForm();
+          this.openSnackBar("Se registró la comida realizada", "OK");
+        }
       });
+  }
+
+  private reiniciarForm(){
+    this.comensalesGroup.reset('',{emitEvent: false});
+    Object.keys(this.comensalesGroup.controls).forEach((name) => {
+      this.comensalesGroup.get(name).reset('');
+      this.comensalesGroup.get(name).setErrors(null);
+      this.comensalesGroup.get(name).markAsPending();
+    });
+    this.dataSource = new MatTableDataSource<InsumoMenu>();
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 5000,
+    });
   }
 }

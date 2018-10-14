@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormGroup, FormControl, Validators, FormGroupDirective } from '@angular/forms';
 import { Combo } from '../model/combo';
 import { Observable } from 'rxjs';
 import { CombosService } from '../services/combos/combos.service';
@@ -7,6 +7,7 @@ import { startWith, map } from 'rxjs/operators';
 import { ProveedoresService } from '../services/proveedores/proveedores.service';
 import { Proveedor } from '../model/proveedor';
 import { MatSnackBar } from '@angular/material';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-proveedores',
@@ -15,6 +16,8 @@ import { MatSnackBar } from '@angular/material';
 })
 export class ProveedoresComponent implements OnInit {
 
+  @ViewChild(FormGroupDirective) myForm;
+  
   mailRegex = '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$';
   proveedorGroup = new FormGroup({
     nombre: new FormControl('', Validators.required),
@@ -38,7 +41,8 @@ export class ProveedoresComponent implements OnInit {
   formasDePago: Combo[];
 
   constructor(private comboService: CombosService, private proveedorService: ProveedoresService,
-    public snackBar: MatSnackBar) { }
+    public snackBar: MatSnackBar) { 
+    }
 
   ngOnInit() {
     this.getLocalidades();
@@ -106,10 +110,12 @@ export class ProveedoresComponent implements OnInit {
   }
 
   private reiniciarForm(){
-    Object.keys(this.proveedorGroup.controls).forEach((name) => {
-      this.proveedorGroup.get(name).reset('');
-      this.proveedorGroup.get(name).setErrors(null);
-    });
+    this.proveedorGroup.reset('',{emitEvent: false});
+     Object.keys(this.proveedorGroup.controls).forEach((name) => {
+       this.proveedorGroup.get(name).reset('');
+       this.proveedorGroup.get(name).setErrors(null);
+       this.proveedorGroup.get(name).markAsPending();
+     });
   }
 
   openSnackBar(message: string, action: string) {

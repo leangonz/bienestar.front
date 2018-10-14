@@ -153,22 +153,33 @@ export class OrdenCompraComponent implements OnInit {
         console.log(resultado);
         if(resultado){
           this.reiniciarForm();
-          this.openSnackBar("Se registro la compra", "OK");
+          this.openSnackBar("Se registró la compra", "OK");
         }
       });
   }
 
   private reiniciarForm(){
+    this.compraGroup.reset('',{emitEvent: false});
     Object.keys(this.compraGroup.controls).forEach((name) => {
       this.compraGroup.get(name).reset('');
       this.compraGroup.get(name).setErrors(null);
+      this.compraGroup.get(name).markAsPending();
     });
+    this.dataSource = new MatTableDataSource<CompraItem>();
   }
 
   private reiniciarCampos(){
     this.compraGroup.get("cantidad").reset('');
+    this.compraGroup.get("cantidad").setErrors(null);
+    this.compraGroup.get("cantidad").markAsPending();
+
     this.compraGroup.get("insumo").reset('');
+    this.compraGroup.get("insumo").setErrors(null);
+    this.compraGroup.get("insumo").markAsPending();
+
     this.compraGroup.get("precioUnitario").reset('');
+    this.compraGroup.get("precioUnitario").setErrors(null);
+    this.compraGroup.get("precioUnitario").markAsPending();
   }
 
   openSnackBar(message: string, action: string) {
