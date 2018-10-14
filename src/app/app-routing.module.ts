@@ -8,6 +8,7 @@ import { AjusteStockComponent } from './ajuste-stock/ajuste-stock.component';
 import { ProveedoresComponent } from './proveedores/proveedores.component';
 import { StockComponent } from './stock/stock.component';
 import { OrdenCompraComponent } from './orden-compra/orden-compra.component';
+import { ListadoComprasComponent } from './listado-compras/listado-compras.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'proveedores', component: ProveedoresComponent },
   { path: 'stock', component: StockComponent },
   { path: 'compra', component: OrdenCompraComponent },
+  { path: 'listaCompras', component: ListadoComprasComponent },
   // otherwise redirect to home
   { path: '**', redirectTo: '' }
 ];

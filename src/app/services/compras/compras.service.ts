@@ -3,6 +3,7 @@ import { HandleError, HttpErrorHandlerService } from '../../http-error-handler.s
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { CompraResumen } from '../../model/compraResumen';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -26,6 +27,13 @@ export class ComprasService {
     return this.http.post<Boolean>(this.host + '/cargarCompra', data)
       .pipe(
         catchError(this.handleError('guardarCompra', false))
+      );
+  }
+
+  filtrarCompras (idProveedor): Observable<CompraResumen[]> {
+    return this.http.post<CompraResumen[]>(this.host + '/filtrarCompra', idProveedor)
+      .pipe(
+        catchError(this.handleError('filtrarCompra', []))
       );
   }
 }

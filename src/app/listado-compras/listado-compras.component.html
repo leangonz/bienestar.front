@@ -1,0 +1,57 @@
+<body class="mat-app-background">
+  <div class="page_title">
+    <h2 class="margin_title">Compras</h2>
+  </div>
+  <section>
+    <mat-form-field class="combo">
+      <input type="text" placeholder="Proveedor" aria-label="Number" matInput [formControl]="proveedorControl" [matAutocomplete]="auto">
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayCombo">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+          {{option.descripcion}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <button mat-raised-button mat-button color="primary" (click)="filtrarCompra()" type="button">Filtrar</button>
+  </section>
+  <section>
+    <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <!-- Insumo Column -->
+        <ng-container matColumnDef="factura">
+          <mat-header-cell *matHeaderCellDef>Factura</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.factura}} </mat-cell>
+        </ng-container>
+
+        <!-- Cantidad Column -->
+        <ng-container matColumnDef="fecha">
+          <mat-header-cell mat-header-cell *matHeaderCellDef> Fecha </mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.fecha | date: 'dd/MM/yyyy'}}</mat-cell>
+        </ng-container>
+
+        <!-- Cantidad Column -->
+        <ng-container matColumnDef="proveedor">
+            <mat-header-cell mat-header-cell *matHeaderCellDef> Proveedor </mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.proveedor}}</mat-cell>
+          </ng-container>
+
+        <!-- Unidad de medida Column -->
+        <ng-container matColumnDef="precioTotal">
+          <mat-header-cell mat-header-cell *matHeaderCellDef> Precio Total </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.precioTotal}} </mat-cell>
+        </ng-container>
+
+        <!-- Detale Column -->
+        <ng-container matColumnDef="detalle">
+          <mat-header-cell mat-header-cell *matHeaderCellDef></mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <button mat-button>
+              <mat-icon>visibility</mat-icon>
+            </button>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;">
+        </mat-row>
+      </mat-table>
+    </section>
+</body>
