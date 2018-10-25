@@ -19,10 +19,8 @@ export class DownloadService {
 
    
    getReportes (): Observable<ArrayBuffer> {
-    return this.http.get<ArrayBuffer>(this.host + '/comprasTotales', 
-    {
-      //headers: {"accept": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"},
-     params: {"type":"1", "anio": "2018"}, responseType: "arraybuffer"})
+     const options = {params:{"type":"1", "anio": "2018"}, responseType: "arraybuffer"};
+    return this.http.get<ArrayBuffer>(this.host + '/comprasTotales', options)
       .pipe(
         catchError(this.handleError('getReportes', null))
       );
