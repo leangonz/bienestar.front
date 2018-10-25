@@ -27,6 +27,7 @@ import { OrdenCompraComponent } from './orden-compra/orden-compra.component';
 
 import * as _moment from 'moment';
 import { ListadoComprasComponent } from './listado-compras/listado-compras.component';
+import { ReportesComponent } from './reportes/reportes.component';
 
 export const DD_MM_YYYY_Format = {
   parse: {
@@ -51,7 +52,8 @@ export const DD_MM_YYYY_Format = {
     ProveedoresComponent,
     StockComponent,
     OrdenCompraComponent,
-    ListadoComprasComponent
+    ListadoComprasComponent,
+    ReportesComponent
   ],
   imports: [
     FormsModule,
