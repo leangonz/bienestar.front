@@ -23,6 +23,11 @@ export class ReportesComponent implements OnInit {
     this.exportar(params);
   }
 
+  exportarHistorialDescarte() : void {
+    const params = {"type": "3", "anio": "2018"};
+    this.exportar(params);
+  }
+
   exportar(params) : void {
     this.downloadService.getReportes(params)
       .subscribe(data => {
