@@ -28,6 +28,11 @@ export class ReportesComponent implements OnInit {
     this.exportar(params);
   }
 
+  exportarConsumos() : void {
+    const params = {"type": "4"};
+    this.exportar(params);
+  }
+
   exportar(params) : void {
     this.downloadService.getReportes(params)
       .subscribe(data => {
