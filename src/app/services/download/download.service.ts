@@ -18,8 +18,8 @@ export class DownloadService {
    }
 
    
-   getReportes (): Observable<ArrayBuffer> {
-     const options = {params:{"type":"1", "anio": "2018"}, responseType: "arraybuffer" as "json"};
+   getReportes (params): Observable<ArrayBuffer> {
+     const options = {params: params, responseType: "arraybuffer" as "json"};
     return this.http.get<ArrayBuffer>(this.host + '/comprasTotales', options)
       .pipe(
         catchError(this.handleError('getReportes', null))

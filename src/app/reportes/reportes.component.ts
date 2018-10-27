@@ -13,8 +13,18 @@ export class ReportesComponent implements OnInit {
   ngOnInit() {
   }
 
-  exportar() : void {
-    this.downloadService.getReportes()
+  exportarCompras() : void {
+    const params = {"type": "1", "anio": "2018"};
+    this.exportar(params);
+  }
+
+  exportarEvolucionPrecios() : void {
+    const params = {"type": "2", "desde": "01/02/2018", "hasta": "01/08/2018"};
+    this.exportar(params);
+  }
+
+  exportar(params) : void {
+    this.downloadService.getReportes(params)
       .subscribe(data => {
         var blob = new Blob([data],{ type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
         let link = document.createElement('a');
