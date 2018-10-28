@@ -4,7 +4,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { Observable } from 'rxjs/internal/Observable';
 import { startWith } from 'rxjs/internal/operators/startWith';
 import { map } from 'rxjs/internal/operators/map';
-import { MatTableDataSource, MatDialog } from '@angular/material';
+import { MatTableDataSource, MatDialog, MatSnackBar } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { InsumoMenu } from '../model/insumo';
 import { CombosService } from '../services/combos/combos.service';
@@ -23,7 +23,7 @@ export class AjusteStockComponent implements OnInit {
 
   ajusteGroup = new FormGroup({
     fecha: new FormControl('', Validators.required),
-    motivos: new FormControl()
+    motivos: new FormControl('', Validators.required)
   });
 
   filteredOptions: Observable<Combo[]>;
@@ -33,7 +33,7 @@ export class AjusteStockComponent implements OnInit {
   dataSource = new MatTableDataSource<InsumoMenu>();
 
   constructor(private comboService: CombosService, private insumoService: InsumoService,
-    private stockService: StockService, public dialog: MatDialog) { }
+    private stockService: StockService, public dialog: MatDialog, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.getMotivos();
@@ -94,6 +94,30 @@ export class AjusteStockComponent implements OnInit {
     this.stockService.ajustarStock(dtoToSend)
       .subscribe(resultado => {
         console.log(resultado);
+        if(resultado){
+          this.reiniciarForm();
+          this.openSnackBar("Se realizó el ajuste correspondiente", "OK");
+        }
       });
+  }
+
+  isEmptyTable() : Boolean {
+    return this.dataSource.data.length == 0;
+  }
+
+  private reiniciarForm(){
+    this.ajusteGroup.reset('',{emitEvent: false});
+    Object.keys(this.ajusteGroup.controls).forEach((name) => {
+      this.ajusteGroup.get(name).reset('');
+      this.ajusteGroup.get(name).setErrors(null);
+      this.ajusteGroup.get(name).markAsPending();
+    });
+    this.dataSource = new MatTableDataSource<InsumoMenu>();
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 5000,
+    });
   }
 }
