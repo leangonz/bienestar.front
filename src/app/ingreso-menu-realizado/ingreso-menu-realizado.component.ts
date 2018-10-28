@@ -109,16 +109,21 @@ export class IngresoMenuRealizadoComponent implements OnInit {
     dtoToSend.cuatroCincoAnios = this.comensalesGroup.get("cuatroCincoAnios").value;
     dtoToSend.adultos = this.comensalesGroup.get("adultos").value;
     dtoToSend.insumos = this.dataSource.data;
-    console.log(dtoToSend);
 
-    this.insumoService.guardarMenuRealizado(dtoToSend)
-      .subscribe(resultado => {
-        console.log(resultado);
-        if(resultado){
-          this.reiniciarForm();
-          this.openSnackBar("Se registró la comida realizada", "OK");
-        }
-      });
+    if(this.dataSource.data.length > 0){
+      console.log(dtoToSend);
+  
+      this.insumoService.guardarMenuRealizado(dtoToSend)
+        .subscribe(resultado => {
+          console.log(resultado);
+          if(resultado){
+            this.reiniciarForm();
+            this.openSnackBar("Se registró la comida realizada", "OK");
+          }
+        });
+    } else {
+      this.openSnackBar("Debe cargar al menos un insumo", "OK");
+    }
   }
 
   private reiniciarForm(){
