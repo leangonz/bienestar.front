@@ -1,14 +1,14 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { IngresoMenuRealizadoComponent } from 'src/app/ingreso-menu-realizado/ingreso-menu-realizado.component';
-import { InsumoMenu } from 'src/app/model/insumo';
-import { Combo } from 'src/app/model/combo';
+import { IngresoMenuRealizadoComponent } from '../ingreso-menu-realizado/ingreso-menu-realizado.component';
+import { InsumoMenu } from '../model/insumo';
+import { Combo } from '../model/combo';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs/internal/Observable';
-import { CombosService } from 'src/app/services/combos/combos.service';
+import { CombosService } from '../services/combos/combos.service';
 import { startWith } from 'rxjs/internal/operators/startWith';
 import { map } from 'rxjs/internal/operators/map';
-import { InsumoService } from 'src/app/services/insumos/insumo.service';
+import { InsumoService } from '../services/insumos/insumo.service';
 
 @Component({
   selector: 'app-buscador-insumos',
@@ -27,10 +27,10 @@ export class BuscadorInsumosComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: InsumoMenu) { }
 
   ngOnInit() {
-    this.getMenues();
+    this.getInsumos();
   }
 
-  getMenues(): void {
+  getInsumos(): void {
     this.insumoService.getInsumos()
       .subscribe(insumos => {
         this.insumos = insumos
