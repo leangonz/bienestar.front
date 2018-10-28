@@ -117,17 +117,23 @@ export class OrdenCompraComponent implements OnInit {
   agregarItem(): void {
     var id = this.compraGroup.get("insumo").value.id;
     var isNotDuplicated = this.dataSource.data.findIndex(d => d.insumo === id) == -1;
-    if(isNotDuplicated){
-      var item = {} as CompraItem;
-      item.cantidad = this.compraGroup.get("cantidad").value;
-      item.insumo = id;
-      item.descripcion = this.compraGroup.get("insumo").value.descripcion;
-      item.precioUnitario = this.compraGroup.get("precioUnitario").value;
-      item.precioTotal = item.cantidad * item.precioUnitario;
-      this.dataSource.data.push(item);
-      this.dataSource = new MatTableDataSource<CompraItem>(this.dataSource.data);
+    if(id){
+      if(isNotDuplicated){
+        var item = {} as CompraItem;
+        item.cantidad = this.compraGroup.get("cantidad").value;
+        item.insumo = id;
+        item.descripcion = this.compraGroup.get("insumo").value.descripcion;
+        item.precioUnitario = this.compraGroup.get("precioUnitario").value;
+        item.precioTotal = item.cantidad * item.precioUnitario;
+        this.dataSource.data.push(item);
+        this.dataSource = new MatTableDataSource<CompraItem>(this.dataSource.data);
+      } else {
+        this.openSnackBar("El insumo ya se encuentra agregado", "OK");
+      }
+      this.reiniciarCampos();
+    } else {
+      this.openSnackBar("El insumo no existe", "OK");
     }
-    this.reiniciarCampos();
   }
 
   borrarItem(idItem): void {
