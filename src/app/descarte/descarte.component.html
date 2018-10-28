@@ -1,0 +1,55 @@
+<body class="mat-app-background">
+  <div class="page_title">
+    <h2 class="margin_title">Descarte</h2>
+  </div>
+  <form [formGroup]="descarteGroup" (ngSubmit)="guardar()">
+    <mat-form-field class="fecha">
+      <input matInput [matDatepicker]="picker" placeholder="Fecha" formControlName="fecha">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <section>
+      <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <!-- Insumo Column -->
+        <ng-container matColumnDef="menu">
+          <mat-header-cell *matHeaderCellDef>Menu</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.descripcion}} </mat-cell>
+        </ng-container>
+
+        <!-- Cantidad Column -->
+        <ng-container matColumnDef="cantidad">
+          <mat-header-cell mat-header-cell *matHeaderCellDef> Cantidad a descartar</mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <input type="number" [value]="element.cantidad" [(ngModel)]="element.cantidad"
+            [step]="0.01" [ngModelOptions]="{standalone: true}" min="0.01">
+          </mat-cell>
+        </ng-container>
+
+        <!-- Unidad de medida Column -->
+        <ng-container matColumnDef="unidadMedida">
+          <mat-header-cell mat-header-cell *matHeaderCellDef> Unidad de medida </mat-header-cell>
+          <mat-cell *matCellDef="let element"> KG </mat-cell>
+        </ng-container>
+
+        <!-- Delete Column -->
+        <ng-container matColumnDef="delete">
+          <mat-header-cell mat-header-cell *matHeaderCellDef></mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <button mat-button (click)="borrarMenu(element.idMenu)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;">
+        </mat-row>
+      </mat-table>
+  </section>
+  <div class="button-row">
+    <button class="submit-btn" color="primary" mat-raised-button type="submit" [disabled]="!descarteGroup.valid">Guardar</button>
+    <button mat-raised-button (click)="openDialog()" type="button">Agregar Menu</button>
+  </div>
+</form>
+
+</body>

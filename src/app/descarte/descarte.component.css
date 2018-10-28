@@ -1,0 +1,54 @@
+.form {
+    width: 100%;
+  }
+
+  .full-width {
+    width: 100%;
+  }
+  .section {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    height: 60px;
+  }
+
+  .margin {
+    margin: 10px;
+    width: 100px;
+  }
+  .combo {
+    width: 300px;
+    margin: 10px;
+  }
+  table {
+    width: 100%;
+  }
+.inputNumber{
+  width: 100px;
+  margin: 10px;
+}
+.fecha{
+  width: 110px;
+  margin: 10px;
+}
+
+.button-row button,
+.button-row a {
+  margin-right: 8px;
+  margin: 10px;
+  align-content: right;
+  align-items: center;
+
+}
+.page_title
+{
+  width: 100%;
+  color: white;
+  background: #3f51b5;
+  margin-top: 1px;
+    }
+.margin_title
+{
+
+  margin-left: 10px;
+    }
