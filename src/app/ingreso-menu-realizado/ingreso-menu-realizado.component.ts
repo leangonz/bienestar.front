@@ -72,7 +72,9 @@ export class IngresoMenuRealizadoComponent implements OnInit {
     console.log(idMenu);
     this.insumoService.getInsumosMenu(idMenu)
       .subscribe(insumos => {
-        this.dataSource = new MatTableDataSource<InsumoMenu>(insumos);
+        insumos = insumos.filter(item => this.dataSource.data.findIndex(d => d.id === item.id) == -1);
+        this.dataSource.data = this.dataSource.data.concat(insumos);
+        
       });
   }
 
@@ -98,7 +100,13 @@ export class IngresoMenuRealizadoComponent implements OnInit {
       }
     });
   }
-  
+  agregarInsumosByMenu(): void {
+    var menueSelected = this.comensalesGroup.get("myControl").value;
+    if(menueSelected){
+      this.getInsumosMenu(menueSelected.id);
+    }
+  }
+
   guardar(): void {
     var dtoToSend = {} as MenuRealizado ;
     dtoToSend.fecha = this.comensalesGroup.get("fecha").value;

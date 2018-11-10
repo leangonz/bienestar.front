@@ -42,13 +42,13 @@
     <section>
         <mat-form-field class="combo">
             <input type="text" placeholder="Menu" aria-label="Number" matInput formControlName="myControl" [matAutocomplete]="auto">
-            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayMenues"
-                              (optionSelected)='getInsumosMenu($event.option.value.id)'>
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayMenues">
               <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
                 {{option.descripcion}}
               </mat-option>
             </mat-autocomplete>
           </mat-form-field>
+          <button mat-raised-button (click)="agregarInsumosByMenu()" type="button">Agregar</button>
     </section>
 
     <section>

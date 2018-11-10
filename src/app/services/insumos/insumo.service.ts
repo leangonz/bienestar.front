@@ -33,14 +33,14 @@ export class InsumoService {
   }
 
   getInsumos (): Observable<InsumoMenu[]> {
-    return this.http.get<InsumoMenu[]>(this.host + '/cargaInsumo')
+    return this.http.get<InsumoMenu[]>(this.host + '/cargaInsumo', httpOptions)
       .pipe(
         catchError(this.handleError('getInsumos', []))
       );
   }
 
   guardarMenuRealizado (data): Observable<Boolean> {
-    return this.http.post<Boolean>(this.host + '/guardarConsumoRealizado', data)
+    return this.http.post<Boolean>(this.host + '/guardarConsumoRealizado', data, httpOptions)
       .pipe(
         catchError(this.handleError('guardarMenuRealizado', false))
       );
