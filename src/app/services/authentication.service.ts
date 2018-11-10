@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { NgxPermissionsService } from 'ngx-permissions';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -17,7 +18,8 @@ export class AuthenticationService {
   host = 'http://localhost:8080';
 
   
-  constructor(private http: HttpClient) { }
+  constructor(private permissionsService: NgxPermissionsService,
+    private http: HttpClient) {}
 
   login(username: string, password: string) {
     console.log("auth service");
@@ -31,6 +33,8 @@ export class AuthenticationService {
             if (user) {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('currentUser', JSON.stringify(user));
+                this.permissionsService.loadPermissions(user.authorities);
+                this.permissionsService.addPermission("authenticated");
             }
 
             return user;
@@ -40,5 +44,6 @@ export class AuthenticationService {
 logout() {
     // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
-}
+    this.permissionsService.flushPermissions();
+  }
 }

@@ -16,14 +16,14 @@ const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent , canActivate: [AuthGuard]},
   { path: 'login', component: LoginComponent },
-  { path: 'menuRealizado', component: IngresoMenuRealizadoComponent },
-  { path: 'ajusteStock', component: AjusteStockComponent },
-  { path: 'proveedores', component: ProveedoresComponent },
-  { path: 'stock', component: StockComponent },
-  { path: 'compra', component: OrdenCompraComponent },
-  { path: 'listaCompras', component: ListadoComprasComponent },
-  { path: 'reportes', component: ReportesComponent },
-  { path: 'descarte', component: DescarteComponent },
+  { path: 'menuRealizado', component: IngresoMenuRealizadoComponent, canActivate: [AuthGuard] },
+  { path: 'ajusteStock', component: AjusteStockComponent, canActivate: [AuthGuard] },
+  { path: 'proveedores', component: ProveedoresComponent, canActivate: [AuthGuard] },
+  { path: 'stock', component: StockComponent, canActivate: [AuthGuard] },
+  { path: 'compra', component: OrdenCompraComponent, canActivate: [AuthGuard] },
+  { path: 'listaCompras', component: ListadoComprasComponent, canActivate: [AuthGuard] },
+  { path: 'reportes', component: ReportesComponent, canActivate: [AuthGuard] },
+  { path: 'descarte', component: DescarteComponent, canActivate: [AuthGuard] },
   // otherwise redirect to home
   { path: '**', redirectTo: '' }
 ];

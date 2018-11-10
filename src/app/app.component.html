@@ -2,13 +2,7 @@
 <mat-sidenav-container>
     <mat-sidenav  #sidenav role="navigation">
         <mat-nav-list>
-         <a mat-list-item
-             routerLink="/">
-           <mat-icon class="icon">home</mat-icon>
-             <span class="label">Home</span>
-         </a>
-         <a  mat-list-item
-             type="button">
+         <a  mat-list-item routerLink="/login">
            <mat-icon class="icon">input</mat-icon>
            <span class="label">LogOut</span>
          </a>
@@ -21,56 +15,50 @@
               <mat-icon>menu</mat-icon>
             </button>
           </div>
-           <div class="margin">
+           <div class="margin" *ngxPermissionsOnly="['cargaDiaria']">
              <a routerLink="/menuRealizado">
                 Menu Realizado
              </a>
            </div>
-           <div class="margin">
+           <div class="margin" *ngxPermissionsOnly="['ajustarStock']">
              <a routerLink="/ajusteStock">
                 Ajuste de Stock
              </a>
            </div>
-           <div class="margin">
+           <div class="margin" *ngxPermissionsOnly="['abmProveedor']">
             <a routerLink="/proveedores">
                Proveedores
             </a>
           </div>
-          <div class="margin">
+          <div class="margin" *ngxPermissionsOnly="['consultarStock']">
             <a routerLink="/stock">
                Stock
             </a>
           </div>
-          <div class="margin">
+          <div class="margin" *ngxPermissionsOnly="['cargarCompra']">
             <a routerLink="/compra">
                Orden compra
             </a>
           </div>
-          <div class="margin">
+          <div class="margin" *ngxPermissionsOnly="['cargarCompra']">
             <a routerLink="/listaCompras">
                Compras
             </a>
           </div>
-          <div class="margin">
+          <div class="margin" *ngxPermissionsOnly="['descarte']">
             <a routerLink="/descarte">
                Descarte
             </a>
           </div>
-          <div class="margin">
+          <div class="margin" *ngxPermissionsOnly="['reportes']">
             <a routerLink="/reportes">
                Reportes
             </a>
           </div>
            <div fxFlex fxLayout fxLayoutAlign="flex-end"  fxHide.xs>
               <ul fxLayout fxLayoutGap="20px" class="navigation-items">
-                  <li>
-                    <a routerLink="/menuRealizado">
-                        <mat-icon class="icon">home</mat-icon>
-                        <span class="label">Home</span>
-                    </a>
-                  </li>
-                  <li>
-                      <a routerLink="/">
+                  <li *ngxPermissionsOnly="['authenticated']">
+                      <a routerLink="/login">
                         <mat-icon class="icon">input</mat-icon>
                         <span class="label">Cerrar sesión</span>
                        </a>

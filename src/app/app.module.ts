@@ -31,6 +31,9 @@ import { ReportesComponent } from './reportes/reportes.component';
 import { DescarteComponent } from './descarte/descarte.component';
 import { BuscadorMenusComponent } from './buscador-menus/buscador-menus.component';
 
+
+import { NgxPermissionsModule } from 'ngx-permissions';
+
 export const DD_MM_YYYY_Format = {
   parse: {
       dateInput: 'LL',
@@ -71,7 +74,7 @@ export const DD_MM_YYYY_Format = {
     MatNativeDateModule, MatFormFieldModule,MatInputModule,
     MatAutocompleteModule, MatTableModule,MatSidenavModule,
     MatToolbarModule, MatIconModule,MatListModule,MatDialogModule,
-    MatSnackBarModule
+    MatSnackBarModule, NgxPermissionsModule.forRoot()
   ],
   entryComponents: [BuscadorInsumosComponent, BuscadorMenusComponent],
   providers: [AuthGuard,AuthenticationService,
