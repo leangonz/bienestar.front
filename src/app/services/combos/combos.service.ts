@@ -10,7 +10,8 @@ import { Combo } from '../../model/combo';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/json'
-  })
+  }),
+  withCredentials: true
 };
 
 @Injectable({
@@ -26,56 +27,56 @@ export class CombosService {
   }
 
   getMenues (): Observable<Combo[]> {
-    return this.http.get<Combo[]>(this.host + '/comboMenue')
+    return this.http.get<Combo[]>(this.host + '/comboMenue', httpOptions)
       .pipe(
         catchError(this.handleError('getMenues', []))
       );
   }
 
   getMotivos (): Observable<Combo[]> {
-    return this.http.get<Combo[]>(this.host + '/comboMotivosAjustables')
+    return this.http.get<Combo[]>(this.host + '/comboMotivosAjustables', httpOptions)
       .pipe(
         catchError(this.handleError('getMotivos', []))
       );
   }
 
   getLocalidades (): Observable<Combo[]> {
-    return this.http.get<Combo[]>(this.host + '/comboLocalidades')
+    return this.http.get<Combo[]>(this.host + '/comboLocalidades', httpOptions)
       .pipe(
         catchError(this.handleError('getLocalidades', []))
       );
   }
 
   getFormasDePago (): Observable<Combo[]> {
-    return this.http.get<Combo[]>(this.host + '/comboFormaDePago')
+    return this.http.get<Combo[]>(this.host + '/comboFormaDePago', httpOptions)
       .pipe(
         catchError(this.handleError('getFormasDePago', []))
       );
   }
 
   getProveedores (): Observable<Combo[]> {
-    return this.http.get<Combo[]>(this.host + '/comboProveedores')
+    return this.http.get<Combo[]>(this.host + '/comboProveedores', httpOptions)
       .pipe(
         catchError(this.handleError('getInsumos', []))
       );
   }
 
   getAreas (): Observable<Combo[]> {
-    return this.http.get<Combo[]>(this.host + '/comboAreas')
+    return this.http.get<Combo[]>(this.host + '/comboAreas', httpOptions)
       .pipe(
         catchError(this.handleError('getInsumos', []))
       );
   }
 
   getCategorias (): Observable<Combo[]> {
-    return this.http.get<Combo[]>(this.host + '/comboCategoriaCompra')
+    return this.http.get<Combo[]>(this.host + '/comboCategoriaCompra', httpOptions)
       .pipe(
         catchError(this.handleError('getInsumos', []))
       );
   }
 
   getInsumos (): Observable<Combo[]> {
-    return this.http.get<Combo[]>(this.host + '/comboInsumos')
+    return this.http.get<Combo[]>(this.host + '/comboInsumos', httpOptions)
       .pipe(
         catchError(this.handleError('getInsumos', []))
       );

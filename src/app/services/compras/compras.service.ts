@@ -8,7 +8,8 @@ import { CompraResumen } from '../../model/compraResumen';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/json'
-  })
+  }),
+  withCredentials: true
 };
 
 @Injectable({
@@ -24,14 +25,14 @@ export class ComprasService {
   }
 
   guardarCompra (data): Observable<Boolean> {
-    return this.http.post<Boolean>(this.host + '/cargarCompra', data)
+    return this.http.post<Boolean>(this.host + '/cargarCompra', data, httpOptions)
       .pipe(
         catchError(this.handleError('guardarCompra', false))
       );
   }
 
   filtrarCompras (idProveedor, factura): Observable<CompraResumen[]> {
-    return this.http.post<CompraResumen[]>(this.host + '/filtrarCompra', {idProveedor, factura})
+    return this.http.post<CompraResumen[]>(this.host + '/filtrarCompra', {idProveedor, factura}, httpOptions)
       .pipe(
         catchError(this.handleError('filtrarCompra', []))
       );

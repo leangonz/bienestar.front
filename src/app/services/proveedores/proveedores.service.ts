@@ -7,7 +7,8 @@ import { catchError } from 'rxjs/operators';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/json'
-  })
+  }),
+  withCredentials: true
 };
 
 @Injectable({
@@ -23,7 +24,7 @@ export class ProveedoresService {
    }
 
    guardarProveedor (data): Observable<Boolean> {
-    return this.http.post<Boolean>(this.host + '/crearProveedor', data)
+    return this.http.post<Boolean>(this.host + '/crearProveedor', data, httpOptions)
       .pipe(
         catchError(this.handleError('guardarProveedor', false))
       );

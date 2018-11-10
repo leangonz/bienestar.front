@@ -9,7 +9,8 @@ import { InsumoMenu } from '../../model/insumo';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/json'
-  })
+  }),
+  withCredentials: true
 };
 
 @Injectable({
@@ -25,7 +26,7 @@ export class InsumoService {
   }
 
   getInsumosMenu (idMenu): Observable<InsumoMenu[]> {
-    return this.http.post<InsumoMenu[]>(this.host + '/cargaInsumoMenu', idMenu)
+    return this.http.post<InsumoMenu[]>(this.host + '/cargaInsumoMenu', idMenu, httpOptions)
       .pipe(
         catchError(this.handleError('getInsumosMenu', []))
       );
