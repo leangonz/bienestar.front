@@ -33,6 +33,11 @@ export class ReportesComponent implements OnInit {
     this.exportar(params);
   }
 
+  exportarGrupoEtario() : void {
+    const params = {"type": "5", "anio": "2018"};
+    this.exportar(params);
+  }
+
   exportar(params) : void {
     this.downloadService.getReportes(params)
       .subscribe(data => {
