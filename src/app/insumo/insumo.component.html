@@ -20,7 +20,7 @@
   </section>
     <section>
         <mat-form-field class="combo">
-            <input type="text" placeholder="Unidad de medida" aria-label="Number" matInput formControlName="UnidadMedidaControl" [matAutocomplete]="autoUnidadMedida">
+            <input type="text" placeholder="Unidad de medida" aria-label="Number" matInput formControlName="unidadMedidaControl" [matAutocomplete]="autoUnidadMedida">
             <mat-autocomplete autoActiveFirstOption #autoUnidadMedida="matAutocomplete" [displayWith]="displayCombo">
               <mat-option *ngFor="let option of unidadMedidaOptions | async" [value]="option">
                 {{option.descripcion}}

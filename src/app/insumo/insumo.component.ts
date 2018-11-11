@@ -7,6 +7,7 @@ import { CombosService } from '../services/combos/combos.service';
 import { InsumoService } from '../services/insumos/insumo.service';
 import { startWith, map } from 'rxjs/operators';
 import { Categoria } from '../model/categoria';
+import { InsumoNuevo } from '../model/InsumoNuevo';
 
 @Component({
   selector: 'app-insumo',
@@ -81,5 +82,38 @@ export class InsumoComponent implements OnInit {
       return this.categoria.filter(option => option.descripcion.toLowerCase().includes(filterValue));
     }
   
-
+    private reiniciarForm(){
+      this.insumoGroup.reset('',{emitEvent: false});
+      Object.keys(this.insumoGroup.controls).forEach((name) => {
+        this.insumoGroup.get(name).reset('');
+        this.insumoGroup.get(name).setErrors(null);
+        this.insumoGroup.get(name).markAsPending();
+      });
+    }
+  
+    openSnackBar(message: string, action: string) {
+      this.snackBar.open(message, action, {
+        duration: 5000,
+      });
+    }
+  
+    guardar(): void {
+      var dtoToSend = {} as InsumoNuevo;
+      dtoToSend.descripcion = this.insumoGroup.get("nombre").value;
+      //dtoToSend.cantidad = this.insumoGroup.get("cantidad").value;
+      dtoToSend.idUnidadMedida = this.insumoGroup.get("unidadMedidaControl").value.id;
+      dtoToSend.categoria = this.insumoGroup.get("categoriaControl").value;
+      
+      console.log(dtoToSend);
+  
+      this.insumoService.guardarInsumo(dtoToSend)
+        .subscribe(resultado => {
+          console.log(resultado);
+          if(resultado){
+            this.reiniciarForm();
+            this.openSnackBar("Se guardó el menú", "OK");
+          }
+        });
+      
+    }
 }

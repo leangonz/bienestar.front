@@ -45,4 +45,11 @@ export class InsumoService {
         catchError(this.handleError('guardarMenuRealizado', false))
       );
   }
+
+  guardarInsumo (data): Observable<Boolean> {
+    return this.http.post<Boolean>(this.host + '/crearInsumo', data, httpOptions)
+      .pipe(
+        catchError(this.handleError('guardarInsumo', false))
+      );
+  }
 }
