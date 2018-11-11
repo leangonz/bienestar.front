@@ -40,6 +40,13 @@ export class CombosService {
       );
   }
 
+  getComidasDia (): Observable<Combo[]> {
+    return this.http.get<Combo[]>(this.host + '/comboComidasDia', httpOptions)
+      .pipe(
+        catchError(this.handleError('getComidasDia', []))
+      );
+  }
+
   getLocalidades (): Observable<Combo[]> {
     return this.http.get<Combo[]>(this.host + '/comboLocalidades', httpOptions)
       .pipe(

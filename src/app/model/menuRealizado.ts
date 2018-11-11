@@ -8,5 +8,6 @@ export interface MenuRealizado {
     tresAnios: string,
     cuatroCincoAnios: string,
     adultos: string,
+    momentoDelDia: string,
     insumos: InsumoMenu[]
   }

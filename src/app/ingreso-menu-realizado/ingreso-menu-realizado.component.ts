@@ -29,11 +29,15 @@ export class IngresoMenuRealizadoComponent implements OnInit {
     tresAnios: new FormControl('', Validators.required),
     cuatroCincoAnios: new FormControl('', Validators.required),
     adultos: new FormControl('', Validators.required),
-    myControl: new FormControl()
+    myControl: new FormControl(),
+    comidaDiaControl: new FormControl('', Validators.required)
   });
 
   filteredOptions: Observable<Combo[]>;
   menues: Combo[];
+
+  comidaDiaOptions: Observable<Combo[]>;
+  comidasDia: Combo[];
 
   displayedColumns: string[] = ['insumo', 'cantidad', 'unidadMedida', 'delete'];
   dataSource = new MatTableDataSource<InsumoMenu>();
@@ -43,6 +47,20 @@ export class IngresoMenuRealizadoComponent implements OnInit {
 
   ngOnInit() {
     this.getMenues();
+    this.getComidasDia();
+  }
+
+  getComidasDia(): void {
+    this.comboService.getComidasDia()
+      .subscribe(comidasDia => {
+        this.comidasDia = comidasDia
+        this.comidaDiaOptions = this.comensalesGroup.get("comidaDiaControl").valueChanges
+        .pipe(
+        startWith<string | Combo>(''),
+        map(value => typeof value === 'string' ? value : value.descripcion),
+        map(descripcion => this._filter(this.comidasDia, descripcion))
+      );
+      });
   }
 
   getMenues(): void {
@@ -53,7 +71,7 @@ export class IngresoMenuRealizadoComponent implements OnInit {
         .pipe(
         startWith<string | Combo>(''),
         map(value => typeof value === 'string' ? value : value.descripcion),
-        map(descripcion => this._filter(descripcion))
+        map(descripcion => this._filter(this.menues, descripcion))
       );
       });
   }
@@ -62,10 +80,10 @@ export class IngresoMenuRealizadoComponent implements OnInit {
     if (menu) { return menu.descripcion; }
   }
 
-  private _filter(descripcion: string): Combo[] {
+  private _filter(lista: Combo[], descripcion: string): Combo[] {
     const filterValue = descripcion.toLowerCase();
 
-    return this.menues.filter(option => option.descripcion.toLowerCase().includes(filterValue));
+    return lista.filter(option => option.descripcion.toLowerCase().includes(filterValue));
   }
   
   getInsumosMenu(idMenu): void {
@@ -116,6 +134,7 @@ export class IngresoMenuRealizadoComponent implements OnInit {
     dtoToSend.tresAnios = this.comensalesGroup.get("tresAnios").value;
     dtoToSend.cuatroCincoAnios = this.comensalesGroup.get("cuatroCincoAnios").value;
     dtoToSend.adultos = this.comensalesGroup.get("adultos").value;
+    dtoToSend.momentoDelDia = this.comensalesGroup.get("comidaDiaControl").value.id
     dtoToSend.insumos = this.dataSource.data;
 
     if(this.dataSource.data.length > 0){
