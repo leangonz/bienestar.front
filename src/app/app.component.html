@@ -60,6 +60,11 @@
                Menu
             </a>
           </div>
+          <div class="margin" *ngxPermissionsOnly="['abmInsumo']">
+            <a routerLink="/insumo">
+               Insumos
+            </a>
+          </div>
            <div fxFlex fxLayout fxLayoutAlign="flex-end"  fxHide.xs>
               <ul fxLayout fxLayoutGap="20px" class="navigation-items">
                   <li *ngxPermissionsOnly="['authenticated']">

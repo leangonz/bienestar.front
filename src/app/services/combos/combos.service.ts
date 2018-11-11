@@ -5,6 +5,7 @@ import { HttpErrorHandlerService, HandleError } from '../../http-error-handler.s
 import { Observable } from 'rxjs/internal/Observable';
 import { catchError } from 'rxjs/internal/operators/catchError';
 import { Combo } from '../../model/combo';
+import { Categoria } from '../../model/categoria';
 
 
 const httpOptions = {
@@ -79,6 +80,20 @@ export class CombosService {
     return this.http.get<Combo[]>(this.host + '/comboCategoriaCompra', httpOptions)
       .pipe(
         catchError(this.handleError('getInsumos', []))
+      );
+  }
+
+  getCategoriasComedor (): Observable<Categoria[]> {
+    return this.http.get<Categoria[]>(this.host + '/comboCategoriasComedor', httpOptions)
+      .pipe(
+        catchError(this.handleError('getCategoriasComedor', []))
+      );
+  }
+
+  getUnidadesMedida (): Observable<Combo[]> {
+    return this.http.get<Combo[]>(this.host + '/comboUnidadMedida', httpOptions)
+      .pipe(
+        catchError(this.handleError('getUnidadesMedida', []))
       );
   }
 

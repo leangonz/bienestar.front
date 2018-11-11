@@ -12,6 +12,7 @@ import { ListadoComprasComponent } from './listado-compras/listado-compras.compo
 import { ReportesComponent } from './reportes/reportes.component';
 import { DescarteComponent } from './descarte/descarte.component';
 import { MenuComponent } from './menu/menu.component';
+import { InsumoComponent } from './insumo/insumo.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'reportes', component: ReportesComponent, canActivate: [AuthGuard] },
   { path: 'descarte', component: DescarteComponent, canActivate: [AuthGuard] },
   { path: 'menu', component: MenuComponent, canActivate: [AuthGuard] },
+  { path: 'insumo', component: InsumoComponent, canActivate: [AuthGuard] },
   // otherwise redirect to home
   { path: '**', redirectTo: '' }
 ];
