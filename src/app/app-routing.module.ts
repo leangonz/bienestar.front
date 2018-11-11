@@ -11,6 +11,7 @@ import { OrdenCompraComponent } from './orden-compra/orden-compra.component';
 import { ListadoComprasComponent } from './listado-compras/listado-compras.component';
 import { ReportesComponent } from './reportes/reportes.component';
 import { DescarteComponent } from './descarte/descarte.component';
+import { MenuComponent } from './menu/menu.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'listaCompras', component: ListadoComprasComponent, canActivate: [AuthGuard] },
   { path: 'reportes', component: ReportesComponent, canActivate: [AuthGuard] },
   { path: 'descarte', component: DescarteComponent, canActivate: [AuthGuard] },
+  { path: 'menu', component: MenuComponent, canActivate: [AuthGuard] },
   // otherwise redirect to home
   { path: '**', redirectTo: '' }
 ];

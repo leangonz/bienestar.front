@@ -88,4 +88,11 @@ export class CombosService {
         catchError(this.handleError('getInsumos', []))
       );
   }
+
+  getTiposMenu (): Observable<Combo[]> {
+    return this.http.get<Combo[]>(this.host + '/comboTipoMenue', httpOptions)
+      .pipe(
+        catchError(this.handleError('getTiposMenu', []))
+      );
+  }
 }

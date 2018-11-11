@@ -55,6 +55,11 @@
                Reportes
             </a>
           </div>
+          <div class="margin" *ngxPermissionsOnly="['abmMenu']">
+            <a routerLink="/menu">
+               Menu
+            </a>
+          </div>
            <div fxFlex fxLayout fxLayoutAlign="flex-end"  fxHide.xs>
               <ul fxLayout fxLayoutGap="20px" class="navigation-items">
                   <li *ngxPermissionsOnly="['authenticated']">

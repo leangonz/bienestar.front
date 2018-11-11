@@ -1,0 +1,68 @@
+<body class="mat-app-background">
+
+  <div class="page_title">
+  <h2 class="margin_title"> Ingreso Menú </h2>
+  </div>
+  <form [formGroup]="menuGroup" (ngSubmit)="guardar()">
+    <div class="form">
+      <mat-form-field>
+        <input matInput placeholder="Menu" formControlName="nombre">
+      </mat-form-field>
+    </div>
+    <section>
+      <mat-form-field class="combo">
+          <input type="text" placeholder="Tipo menu" aria-label="Number" matInput formControlName="tipoMenuControl" [matAutocomplete]="autoTipoMenu">
+          <mat-autocomplete autoActiveFirstOption #autoTipoMenu="matAutocomplete" [displayWith]="displayCombo">
+            <mat-option *ngFor="let option of tipoMenuOptions | async" [value]="option">
+              {{option.descripcion}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+  </section>
+    <section>
+        <mat-form-field class="combo">
+            <input type="text" placeholder="Insumo" aria-label="Number" matInput formControlName="insumoControl" [matAutocomplete]="autoInsumo">
+            <mat-autocomplete autoActiveFirstOption #autoInsumo="matAutocomplete" [displayWith]="displayCombo">
+              <mat-option *ngFor="let option of insumoOptions | async" [value]="option">
+                {{option.descripcion}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+          <button mat-raised-button (click)="agregarInsumos()" type="button">Agregar</button>
+    </section>
+
+  <section>
+
+      <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+          <!-- Insumo Column -->
+          <ng-container matColumnDef="insumo">
+            <mat-header-cell *matHeaderCellDef> Insumo </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.descripcion}} </mat-cell>
+          </ng-container>
+
+          <!-- Unidad de medida Column -->
+          <ng-container matColumnDef="unidadMedida">
+            <mat-header-cell mat-header-cell *matHeaderCellDef> Unidad de medida </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.unidadDeMedida}} </mat-cell>
+          </ng-container>
+
+          <!-- Delete Column -->
+          <ng-container matColumnDef="delete">
+            <mat-header-cell mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <button mat-button (click)="borrarInsumo(element.id)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;">
+          </mat-row>
+        </mat-table>
+    </section>
+    <div class="button-row">
+        <button class="submit-btn" color="primary" mat-raised-button type="submit" [disabled]="!menuGroup.valid || isEmptyTable()">Guardar</button>
+    </div>
+  </form>
+</body>
