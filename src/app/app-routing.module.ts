@@ -13,6 +13,7 @@ import { ReportesComponent } from './reportes/reportes.component';
 import { DescarteComponent } from './descarte/descarte.component';
 import { MenuComponent } from './menu/menu.component';
 import { InsumoComponent } from './insumo/insumo.component';
+import { ListadoProveedoresComponent } from './listado-proveedores/listado-proveedores.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -28,6 +29,7 @@ const routes: Routes = [
   { path: 'descarte', component: DescarteComponent, canActivate: [AuthGuard] },
   { path: 'menu', component: MenuComponent, canActivate: [AuthGuard] },
   { path: 'insumo', component: InsumoComponent, canActivate: [AuthGuard] },
+  { path: 'listaProveedores', component: ListadoProveedoresComponent, canActivate: [AuthGuard] },
   // otherwise redirect to home
   { path: '**', redirectTo: '' }
 ];

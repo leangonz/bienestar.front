@@ -35,6 +35,7 @@ import { BuscadorMenusComponent } from './buscador-menus/buscador-menus.componen
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { MenuComponent } from './menu/menu.component';
 import { InsumoComponent } from './insumo/insumo.component';
+import { ListadoProveedoresComponent } from './listado-proveedores/listado-proveedores.component';
 
 export const DD_MM_YYYY_Format = {
   parse: {
@@ -64,7 +65,8 @@ export const DD_MM_YYYY_Format = {
     DescarteComponent,
     BuscadorMenusComponent,
     MenuComponent,
-    InsumoComponent
+    InsumoComponent,
+    ListadoProveedoresComponent
   ],
   imports: [
     FormsModule,

@@ -1,0 +1,58 @@
+<body class="mat-app-background">
+  <div class="page_title">
+    <h2 class="margin_title">Proveedores</h2>
+  </div>
+  <section>
+    <mat-form-field class="combo">
+      <input type="text" placeholder="Proveedor" aria-label="Number" matInput [formControl]="proveedorControl" [matAutocomplete]="auto">
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayCombo">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+          {{option.descripcion}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <button mat-raised-button mat-button color="primary" (click)="filtrarProveedor()" type="button">Filtrar</button>
+  </section>
+  <section>
+    <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <ng-container matColumnDef="nombre">
+          <mat-header-cell *matHeaderCellDef>Nombre</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.nombre}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="cuit">
+          <mat-header-cell mat-header-cell *matHeaderCellDef> Cuit </mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.cuit}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="telefono">
+            <mat-header-cell mat-header-cell *matHeaderCellDef> Telefono </mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.telefono}}</mat-cell>
+          </ng-container>
+
+        <!-- Detail Column -->
+        <ng-container matColumnDef="modificar">
+          <mat-header-cell mat-header-cell *matHeaderCellDef></mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <button mat-button>
+              <mat-icon>edit</mat-icon>
+            </button>
+          </mat-cell>
+        </ng-container>
+
+        <!-- Delete Column -->
+        <ng-container matColumnDef="eliminar">
+          <mat-header-cell mat-header-cell *matHeaderCellDef></mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <button mat-button (click)="borrarProveedor(element.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;">
+        </mat-row>
+      </mat-table>
+    </section>
+</body>
