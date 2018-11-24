@@ -15,6 +15,7 @@ import { MenuComponent } from './menu/menu.component';
 import { InsumoComponent } from './insumo/insumo.component';
 import { ListadoProveedoresComponent } from './listado-proveedores/listado-proveedores.component';
 import { ListadoMenusComponent } from './listado-menus/listado-menus.component';
+import { ListadoInsumosComponent } from './listado-insumos/listado-insumos.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -32,6 +33,7 @@ const routes: Routes = [
   { path: 'insumo', component: InsumoComponent, canActivate: [AuthGuard] },
   { path: 'listaProveedores', component: ListadoProveedoresComponent, canActivate: [AuthGuard] },
   { path: 'listaMenus', component: ListadoMenusComponent, canActivate: [AuthGuard] },
+  { path: 'listaInsumos', component: ListadoInsumosComponent, canActivate: [AuthGuard] },
   // otherwise redirect to home
   { path: '**', redirectTo: '' }
 ];

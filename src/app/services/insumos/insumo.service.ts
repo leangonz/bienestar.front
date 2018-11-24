@@ -52,4 +52,11 @@ export class InsumoService {
         catchError(this.handleError('guardarInsumo', false))
       );
   }
+
+  filtrarInsumos (idInsumo): Observable<InsumoMenu[]> {
+    return this.http.post<InsumoMenu[]>(this.host + '/filtrarInsumo', {idInsumo}, httpOptions)
+      .pipe(
+        catchError(this.handleError('filtrarInsumo', []))
+      );
+  }
 }

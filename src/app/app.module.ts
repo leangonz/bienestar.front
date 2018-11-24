@@ -37,6 +37,7 @@ import { MenuComponent } from './menu/menu.component';
 import { InsumoComponent } from './insumo/insumo.component';
 import { ListadoProveedoresComponent } from './listado-proveedores/listado-proveedores.component';
 import { ListadoMenusComponent } from './listado-menus/listado-menus.component';
+import { ListadoInsumosComponent } from './listado-insumos/listado-insumos.component';
 
 export const DD_MM_YYYY_Format = {
   parse: {
@@ -68,7 +69,8 @@ export const DD_MM_YYYY_Format = {
     MenuComponent,
     InsumoComponent,
     ListadoProveedoresComponent,
-    ListadoMenusComponent
+    ListadoMenusComponent,
+    ListadoInsumosComponent
   ],
   imports: [
     FormsModule,
