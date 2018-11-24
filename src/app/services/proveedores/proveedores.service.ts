@@ -32,7 +32,7 @@ export class ProveedoresService {
   }
 
   filtrarProveedor (idProveedor): Observable<Proveedor[]> {
-    return this.http.post<Proveedor[]>(this.host + '/filtrarProveedor', idProveedor, httpOptions)
+    return this.http.post<Proveedor[]>(this.host + '/filtrarProveedor', {idProveedor}, httpOptions)
       .pipe(
         catchError(this.handleError('filtrarProveedor', []))
       );

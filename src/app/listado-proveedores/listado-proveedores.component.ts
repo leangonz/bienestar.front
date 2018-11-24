@@ -26,6 +26,7 @@ export class ListadoProveedoresComponent implements OnInit {
 
   ngOnInit() {
     this.getProveedores();
+    this.fillTable();
   }
 
   getProveedores(): void {
@@ -51,14 +52,20 @@ export class ListadoProveedoresComponent implements OnInit {
     return this.proveedores.filter(option => option.descripcion.toLowerCase().includes(filterValue));
   }
 
-  filtrarProveedor(): void {
-    var proveedor;
-    if(this.proveedorControl.value){
-     proveedor = this.proveedorControl.value.id;
-    }
-    this.proveedoresService.filtrarProveedor(proveedor).subscribe(proveedores => {
+  fillTable(): void {
+    this.buscarProveedores(null);
+  }
+
+  buscarProveedores(id): void {
+    this.proveedoresService.filtrarProveedor(id).subscribe(proveedores => {
       console.log(proveedores);
       this.dataSource = new MatTableDataSource<Proveedor>(proveedores);
     });
   }
+
+  filtrarProveedores(): void {
+    if(this.proveedorControl.value){
+     this.buscarProveedores(this.proveedorControl.value.id);
+    }
+  }  
 }
