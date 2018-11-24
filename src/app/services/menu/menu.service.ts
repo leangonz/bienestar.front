@@ -3,6 +3,7 @@ import { HandleError, HttpErrorHandlerService } from '../../http-error-handler.s
 import { catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Menu } from '../../model/menu';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -27,6 +28,13 @@ export class MenuService {
     return this.http.post<Boolean>(this.host + '/crearMenu', data, httpOptions)
       .pipe(
         catchError(this.handleError('guardarMenu', false))
+      );
+  }
+
+  filtrarMenu (idMenu): Observable<Menu[]> {
+    return this.http.post<Menu[]>(this.host + '/filtrarMenu', {idMenu}, httpOptions)
+      .pipe(
+        catchError(this.handleError('filtrarMenu', []))
       );
   }
 }

@@ -64,8 +64,10 @@ export class ListadoProveedoresComponent implements OnInit {
   }
 
   filtrarProveedores(): void {
+    var id = null
     if(this.proveedorControl.value){
-     this.buscarProveedores(this.proveedorControl.value.id);
-    }
+     id = this.proveedorControl.value.id;
+    }    
+    this.buscarProveedores(id);
   }  
 }

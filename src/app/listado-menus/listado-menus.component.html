@@ -1,0 +1,53 @@
+<body class="mat-app-background">
+  <div class="page_title">
+    <h2 class="margin_title">Menus</h2>
+  </div>
+  <section>
+    <mat-form-field class="combo">
+      <input type="text" placeholder="Menu" aria-label="Number" matInput [formControl]="menuControl" [matAutocomplete]="auto">
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayCombo">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+          {{option.descripcion}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <button mat-raised-button mat-button color="primary" (click)="filtrarMenus()" type="button">Filtrar</button>
+  </section>
+  <section>
+    <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <ng-container matColumnDef="nombre">
+          <mat-header-cell *matHeaderCellDef>Nombre</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.nombreMenu}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="tipo">
+          <mat-header-cell mat-header-cell *matHeaderCellDef> Tipo </mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.descTipo}}</mat-cell>
+        </ng-container>
+
+        <!-- Detail Column -->
+        <ng-container matColumnDef="modificar">
+          <mat-header-cell mat-header-cell *matHeaderCellDef></mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <button mat-button>
+              <mat-icon>edit</mat-icon>
+            </button>
+          </mat-cell>
+        </ng-container>
+
+        <!-- Delete Column -->
+        <ng-container matColumnDef="eliminar">
+          <mat-header-cell mat-header-cell *matHeaderCellDef></mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <button mat-button (click)="borrarMenu(element.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;">
+        </mat-row>
+      </mat-table>
+    </section>
+</body>
