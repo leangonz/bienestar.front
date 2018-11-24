@@ -1,0 +1,49 @@
+<body class="mat-app-background">
+  <div class="page_title">
+    <h2 class="margin_title">Movimientos</h2>
+  </div>
+  <section>
+    <mat-form-field class="combo">
+      <input type="text" placeholder="Insumo" aria-label="Number" matInput [formControl]="insumosControl" [matAutocomplete]="auto">
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayCombo">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+          {{option.descripcion}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <button mat-raised-button mat-button color="primary" (click)="filtrar()" type="button">Filtrar</button>
+  </section>
+  <section>
+    <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="fecha">
+          <mat-header-cell *matHeaderCellDef>Fecha</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.fecha}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="insumo">
+          <mat-header-cell *matHeaderCellDef>Insumo</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.insumo}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="motivo">
+          <mat-header-cell mat-header-cell *matHeaderCellDef> Motivo </mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.motivo}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="cantidad">
+            <mat-header-cell mat-header-cell *matHeaderCellDef> Cantidad </mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.cantidad}}</mat-cell>
+          </ng-container>
+
+        <ng-container matColumnDef="unidadDeMedida">
+          <mat-header-cell mat-header-cell *matHeaderCellDef> Unidad de medida </mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.unidadDeMedida}}</mat-cell>
+        </ng-container>
+    
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;">
+        </mat-row>
+      </mat-table>
+    </section>
+</body>
