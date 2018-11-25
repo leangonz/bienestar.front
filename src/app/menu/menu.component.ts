@@ -161,21 +161,48 @@ export class MenuComponent implements OnInit {
   }
 
   guardar(): void {
+    var dtoToSend: Menu = this.armarDataToSend();
+    if(this.id){
+      this.modificarMenu(dtoToSend);
+    } else {
+      this.guardarMenu(dtoToSend);
+    }    
+  }
+
+  guardarMenu(dtoToSend: Menu){
+    this.menuService.guardarMenu(dtoToSend)
+    .subscribe(resultado => {
+      console.log(resultado);
+      if(resultado){
+        this.reiniciarForm();
+        this.openSnackBar("Se creó el menú " + dtoToSend.nombreMenu ,"OK");
+      }
+    });
+  }
+
+  modificarMenu(dtoToSend: Menu){
+    this.menuService.modificarMenu(dtoToSend)
+    .subscribe(resultado => {
+      console.log(resultado);
+      if(resultado){
+        this.reiniciarForm();
+        this.openSnackBar("Se modificó el menú " + dtoToSend.nombreMenu ,"OK");
+      }
+    });
+  }
+  armarDataToSend(): Menu{
     var dtoToSend = {} as Menu ;
-    dtoToSend.nombreMenu = this.menuGroup.get("nombre").value;
+    if(this.id){
+      //solo en modificacion
+      dtoToSend.idMenu = this.id;
+    } else {
+      //solo en creacion
+      dtoToSend.nombreMenu = this.menuGroup.get("nombre").value;
+    }
     dtoToSend.tipoMenu = this.menuGroup.get("tipoMenuControl").value.id;
     dtoToSend.insumos = this.dataSource.data;
 
     console.log(dtoToSend);
-
-    this.menuService.guardarMenu(dtoToSend)
-      .subscribe(resultado => {
-        console.log(resultado);
-        if(resultado){
-          this.reiniciarForm();
-          this.openSnackBar("Se guardó el menú", "OK");
-        }
-      });
-    
+    return dtoToSend;
   }
 }

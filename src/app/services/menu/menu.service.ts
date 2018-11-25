@@ -31,6 +31,13 @@ export class MenuService {
       );
   }
 
+  modificarMenu (data): Observable<Boolean> {
+    return this.http.post<Boolean>(this.host + '/modificarMenu', data, httpOptions)
+      .pipe(
+        catchError(this.handleError('modificarMenu', false))
+      );
+    }
+
   filtrarMenu (idMenu): Observable<Menu[]> {
     return this.http.post<Menu[]>(this.host + '/filtrarMenu', {idMenu}, httpOptions)
       .pipe(
