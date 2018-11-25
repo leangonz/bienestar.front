@@ -10,6 +10,7 @@ import { MenuService } from '../services/menu/menu.service';
 import { startWith } from 'rxjs/internal/operators/startWith';
 import { map } from 'rxjs/internal/operators/map';
 import { Menu } from '../model/menu';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -33,11 +34,19 @@ export class MenuComponent implements OnInit {
   displayedColumns: string[] = ['insumo', 'unidadMedida', 'delete'];
   dataSource = new MatTableDataSource<InsumoMenu>();
 
+  id: number;
   
   constructor(private comboService: CombosService, private insumoService: InsumoService,
-    public dialog: MatDialog, public snackBar: MatSnackBar, private menuService: MenuService) { }
+    public dialog: MatDialog, public snackBar: MatSnackBar, private menuService: MenuService,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.route.params.subscribe(params => {
+      this.id = params['id'];
+      if(this.id){
+        console.log("precargo menu");
+      }
+   });
     this.getTiposMenu();
     this.getInsumos();
   }

@@ -8,6 +8,7 @@ import { InsumoService } from '../services/insumos/insumo.service';
 import { startWith, map } from 'rxjs/operators';
 import { Categoria } from '../model/categoria';
 import { InsumoNuevo } from '../model/InsumoNuevo';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-insumo',
@@ -28,10 +29,18 @@ export class InsumoComponent implements OnInit {
   unidadMedidaOptions: Observable<Combo[]>;
   unidadMedida: Combo[];
 
+  id: number;
+  
   constructor(private comboService: CombosService, private insumoService: InsumoService,
-    public dialog: MatDialog, public snackBar: MatSnackBar) { }
+    public dialog: MatDialog, public snackBar: MatSnackBar,private route: ActivatedRoute) { }
 
     ngOnInit() {
+      this.route.params.subscribe(params => {
+        this.id = params['id'];
+        if(this.id){
+          console.log("precargo insumo");
+        }
+     });
       this.getUnidadMedida();
       this.getCategorias();
     }

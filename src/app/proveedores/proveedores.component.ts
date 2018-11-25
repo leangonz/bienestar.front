@@ -7,6 +7,7 @@ import { startWith, map } from 'rxjs/operators';
 import { ProveedoresService } from '../services/proveedores/proveedores.service';
 import { Proveedor } from '../model/proveedor';
 import { MatSnackBar } from '@angular/material';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-proveedores',
@@ -37,11 +38,19 @@ export class ProveedoresComponent implements OnInit {
   formasDePagoOptions: Observable<Combo[]>;
   formasDePago: Combo[];
 
+  id: number;
+
   constructor(private comboService: CombosService, private proveedorService: ProveedoresService,
-    public snackBar: MatSnackBar) { 
+    public snackBar: MatSnackBar,private route: ActivatedRoute) { 
     }
 
   ngOnInit() {
+    this.route.params.subscribe(params => {
+      this.id = params['id'];
+      if(this.id){
+        console.log("precargo proveedor");
+      }
+   });
     this.getLocalidades();
     this.getFormasDePago();
   }

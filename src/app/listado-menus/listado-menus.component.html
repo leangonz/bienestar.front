@@ -30,7 +30,7 @@
         <ng-container matColumnDef="modificar">
           <mat-header-cell mat-header-cell *matHeaderCellDef></mat-header-cell>
           <mat-cell *matCellDef="let element">
-            <button mat-button>
+            <button mat-button [routerLink]="['/menu', element.idMenu]">
               <mat-icon>edit</mat-icon>
             </button>
           </mat-cell>

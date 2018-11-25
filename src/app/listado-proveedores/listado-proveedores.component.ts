@@ -7,6 +7,7 @@ import { MatTableDataSource, MatDialog, MatSnackBar } from '@angular/material';
 import { CombosService } from '../services/combos/combos.service';
 import { ProveedoresService } from '../services/proveedores/proveedores.service';
 import { startWith, map } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-listado-proveedores',
@@ -23,7 +24,7 @@ export class ListadoProveedoresComponent implements OnInit {
   dataSource = new MatTableDataSource<Proveedor>();
 
   constructor(private comboService: CombosService, private proveedoresService: ProveedoresService,
-    public dialog: MatDialog, public snackBar: MatSnackBar) { }
+    public dialog: MatDialog, public snackBar: MatSnackBar, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.getProveedores();

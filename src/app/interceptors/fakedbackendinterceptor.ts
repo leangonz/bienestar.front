@@ -9,20 +9,16 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     users: any[];
 
     constructor() { 
-        console.log("constructor interceptor");
+    
         this.users = [];
         this.users.push({username:"vane", password: "pato"});
         this.users.push({username:"lean", password: "nopato"});
-        console.log("users created by me " + this.users);
         localStorage.setItem('users', JSON.stringify(this.users));
     }
  
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        // array in local storage for registered users
-        console.log("method intercep");
+  
         let users: any[] = JSON.parse(localStorage.getItem('users')) || [];
-        console.log("users from localStorage" + users);
-        // wrap in delayed observable to simulate server api call
         return of(null).pipe(mergeMap(() => {
  
             // authenticate
