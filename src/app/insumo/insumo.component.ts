@@ -130,22 +130,49 @@ export class InsumoComponent implements OnInit {
     }
   
     guardar(): void {
-      var dtoToSend = {} as InsumoNuevo;
-      dtoToSend.descripcion = this.insumoGroup.get("nombre").value;
+      var dtoToSend: InsumoNuevo = this.armarDataToSend();
+        if(this.id){
+          this.modificarInsumo(dtoToSend);
+        } else {
+          this.guardarInsumo(dtoToSend);
+        } 
+    }
+
+    guardarInsumo(dtoToSend: InsumoNuevo){
+      this.insumoService.guardarInsumo(dtoToSend)
+      .subscribe(resultado => {
+        console.log(resultado);
+        if(resultado){
+          this.reiniciarForm();
+          this.openSnackBar("Se guardó el insumo", "OK");
+        }
+      });
+    }
+  
+    modificarInsumo(dtoToSend: InsumoNuevo){
+      this.insumoService.modificarInsumo(dtoToSend)
+      .subscribe(resultado => {
+        console.log(resultado);
+        if(resultado){
+          this.reiniciarForm();
+          this.openSnackBar("Se modificó el insumo", "OK");
+        }
+      });
+    }
+    armarDataToSend(): InsumoNuevo{
+      var dtoToSend = {} as InsumoNuevo ;
+      if(this.id){
+        //solo en modificacion
+        dtoToSend.id = this.id;
+      } else {
+        //solo en creacion
+        dtoToSend.descripcion = this.insumoGroup.get("nombre").value;
+      }
       //dtoToSend.cantidad = this.insumoGroup.get("cantidad").value;
       dtoToSend.idUnidadMedida = this.insumoGroup.get("unidadMedidaControl").value.id;
       dtoToSend.categoria = this.insumoGroup.get("categoriaControl").value;
-      
-      console.log(dtoToSend);
   
-      this.insumoService.guardarInsumo(dtoToSend)
-        .subscribe(resultado => {
-          console.log(resultado);
-          if(resultado){
-            this.reiniciarForm();
-            this.openSnackBar("Se guardó el menú", "OK");
-          }
-        });
-      
+      console.log(dtoToSend);
+      return dtoToSend;
     }
 }

@@ -54,6 +54,13 @@ export class InsumoService {
       );
   }
 
+  modificarInsumo (data): Observable<Boolean> {
+    return this.http.post<Boolean>(this.host + '/modificarInsumo', data, httpOptions)
+      .pipe(
+        catchError(this.handleError('modificarInsumo', false))
+      );
+  }
+
   filtrarInsumos (idInsumo): Observable<InsumoMenu[]> {
     return this.http.post<InsumoMenu[]>(this.host + '/filtrarInsumo', {idInsumo}, httpOptions)
       .pipe(
