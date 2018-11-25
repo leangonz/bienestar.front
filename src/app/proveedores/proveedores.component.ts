@@ -66,7 +66,7 @@ export class ProveedoresComponent implements OnInit {
     this.getLocalidades();
     this.getFormasDePago();
   }
-  
+
   preCargar(p): void {
     this.proveedorGroup.get("nombre").setValue(p.nombre);
     this.proveedorGroup.get("cuit").setValue(p.cuit);
@@ -120,8 +120,44 @@ export class ProveedoresComponent implements OnInit {
   }
 
   guardar(): void {
+    var dtoToSend: Proveedor = this.armarDataToSend();
+    if(this.id){
+      this.modificarProveedor(dtoToSend);
+    } else {
+      this.guardarProveedor(dtoToSend);
+    }
+  }
+
+  guardarProveedor(dtoToSend: Proveedor){
+    this.proveedorService.guardarProveedor(dtoToSend)
+    .subscribe(resultado => {
+      console.log(resultado);
+      if(resultado){
+        this.reiniciarForm();
+        this.openSnackBar("Se creó el proveedor " + dtoToSend.nombre ,"OK");
+      }
+    });
+  }
+
+  modificarProveedor(dtoToSend: Proveedor){
+    this.proveedorService.modificarProveedor(dtoToSend)
+    .subscribe(resultado => {
+      console.log(resultado);
+      if(resultado){
+        this.reiniciarForm();
+        this.openSnackBar("Se modificó el proveedor " + dtoToSend.nombre ,"OK");
+      }
+    });
+  }
+  armarDataToSend(): Proveedor{
     var dtoToSend = {} as Proveedor ;
-    dtoToSend.nombre = this.proveedorGroup.get("nombre").value;
+    if(this.id){
+      //solo en modificacion
+      dtoToSend.id = this.id;
+    } else {
+      //solo en creacion
+      dtoToSend.nombre = this.proveedorGroup.get("nombre").value;
+    }
     dtoToSend.cuit = this.proveedorGroup.get("cuit").value;
     dtoToSend.calle = this.proveedorGroup.get("calle").value;
     dtoToSend.altura = this.proveedorGroup.get("altura").value;
@@ -132,17 +168,8 @@ export class ProveedoresComponent implements OnInit {
     dtoToSend.formaDePago = this.proveedorGroup.get("formaDePago").value.id;
 
     console.log(dtoToSend);
-
-    this.proveedorService.guardarProveedor(dtoToSend)
-      .subscribe(resultado => {
-        console.log(resultado);
-        if(resultado){
-          this.reiniciarForm();
-          this.openSnackBar("Se creó el proveedor " + dtoToSend.nombre ,"OK");
-        }
-      });
+    return dtoToSend;
   }
-
   private reiniciarForm(){
     this.proveedorGroup.reset('',{emitEvent: false});
      Object.keys(this.proveedorGroup.controls).forEach((name) => {

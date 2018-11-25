@@ -24,12 +24,19 @@ export class ProveedoresService {
     this.handleError = httpErrorHandler.createHandleError('ProveedoresService');
    }
 
-   guardarProveedor (data): Observable<Boolean> {
-    return this.http.post<Boolean>(this.host + '/crearProveedor', data, httpOptions)
-      .pipe(
-        catchError(this.handleError('guardarProveedor', false))
-      );
+  guardarProveedor (data): Observable<Boolean> {
+  return this.http.post<Boolean>(this.host + '/crearProveedor', data, httpOptions)
+    .pipe(
+      catchError(this.handleError('guardarProveedor', false))
+    );
   }
+
+  modificarProveedor (data): Observable<Boolean> {
+    return this.http.post<Boolean>(this.host + '/modificarProveedor', data, httpOptions)
+      .pipe(
+        catchError(this.handleError('modificarProveedor', false))
+      );
+    }
 
   filtrarProveedor (idProveedor): Observable<Proveedor[]> {
     return this.http.post<Proveedor[]>(this.host + '/filtrarProveedor', {idProveedor}, httpOptions)
