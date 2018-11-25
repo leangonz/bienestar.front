@@ -53,7 +53,7 @@ export class OrdenCompraComponent implements OnInit {
   }
 
   getProveedores(): void {
-    this.comboService.getProveedores()
+    this.comboService.getProveedoresActivos()
       .subscribe(proveedores => {
         this.proveedores = proveedores
         this.proveedorOptions = this.compraGroup.get("proveedor").valueChanges

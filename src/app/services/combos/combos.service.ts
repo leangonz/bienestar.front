@@ -65,7 +65,14 @@ export class CombosService {
   getProveedores (): Observable<Combo[]> {
     return this.http.get<Combo[]>(this.host + '/comboProveedores', httpOptions)
       .pipe(
-        catchError(this.handleError('getInsumos', []))
+        catchError(this.handleError('getProveedores', []))
+      );
+  }
+
+  getProveedoresActivos (): Observable<Combo[]> {
+    return this.http.get<Combo[]>(this.host + '/comboProveedoresActivos', httpOptions)
+      .pipe(
+        catchError(this.handleError('getProveedoresActivos', []))
       );
   }
 

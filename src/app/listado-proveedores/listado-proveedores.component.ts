@@ -31,7 +31,7 @@ export class ListadoProveedoresComponent implements OnInit {
   }
 
   getProveedores(): void {
-    this.comboService.getProveedores()
+    this.comboService.getProveedoresActivos()
       .subscribe(proveedores => {
         this.proveedores = proveedores
         this.filteredOptions = this.proveedorControl.valueChanges
@@ -78,6 +78,7 @@ export class ListadoProveedoresComponent implements OnInit {
         console.log(rta);
         if(rta){
           this.filtrarProveedores();
+          this.getProveedores();
           this.openSnackBar("Se elimino el proveedor", "OK");
         }
       });
