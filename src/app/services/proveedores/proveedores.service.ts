@@ -37,4 +37,11 @@ export class ProveedoresService {
         catchError(this.handleError('filtrarProveedor', []))
       );
   }
+
+  borrarProveedor (idProveedor): Observable<Boolean[]> {
+    return this.http.post<Boolean[]>(this.host + '/borrarProveedor', {idProveedor}, httpOptions)
+      .pipe(
+        catchError(this.handleError('borrarProveedor', []))
+      );
+  }
 }

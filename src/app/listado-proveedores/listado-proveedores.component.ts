@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { Combo } from '../model/combo';
 import { Proveedor } from '../model/proveedor';
 import { Observable } from 'rxjs';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource, MatDialog, MatSnackBar } from '@angular/material';
 import { CombosService } from '../services/combos/combos.service';
 import { ProveedoresService } from '../services/proveedores/proveedores.service';
 import { startWith, map } from 'rxjs/operators';
@@ -22,7 +22,8 @@ export class ListadoProveedoresComponent implements OnInit {
   displayedColumns: string[] = ['nombre', 'cuit', 'telefono', 'modificar', 'eliminar'];
   dataSource = new MatTableDataSource<Proveedor>();
 
-  constructor(private comboService: CombosService, private proveedoresService: ProveedoresService) { }
+  constructor(private comboService: CombosService, private proveedoresService: ProveedoresService,
+    public dialog: MatDialog, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.getProveedores();
@@ -69,5 +70,23 @@ export class ListadoProveedoresComponent implements OnInit {
      id = this.proveedorControl.value.id;
     }    
     this.buscarProveedores(id);
-  }  
+  } 
+  
+  delete(id): void {
+    if(confirm("Are you sure to delete "+id)) {
+      this.proveedoresService.borrarProveedor(id).subscribe(rta =>{
+        console.log(rta);
+        if(rta){
+          this.filtrarProveedores();
+          this.openSnackBar("Se elimino el proveedor", "OK");
+        }
+      });
+    }
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 5000,
+    });
+  }
 }

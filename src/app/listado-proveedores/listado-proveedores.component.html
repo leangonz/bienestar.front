@@ -44,7 +44,7 @@
         <ng-container matColumnDef="eliminar">
           <mat-header-cell mat-header-cell *matHeaderCellDef></mat-header-cell>
           <mat-cell *matCellDef="let element">
-            <button mat-button (click)="borrarProveedor(element.id)">
+            <button mat-button (click)="delete(element.id)">
               <mat-icon>delete</mat-icon>
             </button>
           </mat-cell>
