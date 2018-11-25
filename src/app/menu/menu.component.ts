@@ -10,7 +10,7 @@ import { MenuService } from '../services/menu/menu.service';
 import { startWith } from 'rxjs/internal/operators/startWith';
 import { map } from 'rxjs/internal/operators/map';
 import { Menu } from '../model/menu';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -39,7 +39,7 @@ export class MenuComponent implements OnInit {
 
   constructor(private comboService: CombosService, private insumoService: InsumoService,
     public dialog: MatDialog, public snackBar: MatSnackBar, private menuService: MenuService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -185,8 +185,8 @@ export class MenuComponent implements OnInit {
     .subscribe(resultado => {
       console.log(resultado);
       if(resultado){
-        this.reiniciarForm();
-        this.openSnackBar("Se modificó el menú " + dtoToSend.nombreMenu ,"OK");
+        this.openSnackBar("Se modificó el menú " + this.menu.nombreMenu ,"OK");
+        this.router.navigate(['/listaMenus']);
       }
     });
   }

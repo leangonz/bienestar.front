@@ -8,7 +8,7 @@ import { InsumoService } from '../services/insumos/insumo.service';
 import { startWith, map } from 'rxjs/operators';
 import { Categoria } from '../model/categoria';
 import { InsumoNuevo } from '../model/InsumoNuevo';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-insumo',
@@ -33,7 +33,8 @@ export class InsumoComponent implements OnInit {
   insumo: InsumoNuevo;
 
   constructor(private comboService: CombosService, private insumoService: InsumoService,
-    public dialog: MatDialog, public snackBar: MatSnackBar,private route: ActivatedRoute) { }
+    public dialog: MatDialog, public snackBar: MatSnackBar,private route: ActivatedRoute,
+    private router: Router) { }
 
     ngOnInit() {
       this.route.params.subscribe(params => {
@@ -154,8 +155,8 @@ export class InsumoComponent implements OnInit {
       .subscribe(resultado => {
         console.log(resultado);
         if(resultado){
-          this.reiniciarForm();
-          this.openSnackBar("Se modificó el insumo", "OK");
+          this.openSnackBar("Se modificó el insumo " + this.insumo.descripcion, "OK");
+          this.router.navigate(['/listaInsumos']);
         }
       });
     }

@@ -7,7 +7,7 @@ import { startWith, map } from 'rxjs/operators';
 import { ProveedoresService } from '../services/proveedores/proveedores.service';
 import { Proveedor } from '../model/proveedor';
 import { MatSnackBar } from '@angular/material';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-proveedores',
@@ -42,7 +42,7 @@ export class ProveedoresComponent implements OnInit {
   proveedor: Proveedor;
 
   constructor(private comboService: CombosService, private proveedorService: ProveedoresService,
-    public snackBar: MatSnackBar,private route: ActivatedRoute) { 
+    public snackBar: MatSnackBar,private route: ActivatedRoute, private router: Router) { 
     }
 
   ngOnInit() {
@@ -144,8 +144,8 @@ export class ProveedoresComponent implements OnInit {
     .subscribe(resultado => {
       console.log(resultado);
       if(resultado){
-        this.reiniciarForm();
-        this.openSnackBar("Se modificó el proveedor " + dtoToSend.nombre ,"OK");
+        this.openSnackBar("Se modificó el proveedor " + this.proveedor.nombre ,"OK");
+        this.router.navigate(['/listaProveedores']);
       }
     });
   }
