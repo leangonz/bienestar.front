@@ -30,7 +30,8 @@ export class InsumoComponent implements OnInit {
   unidadMedida: Combo[];
 
   id: number;
-  
+  insumo: InsumoNuevo;
+
   constructor(private comboService: CombosService, private insumoService: InsumoService,
     public dialog: MatDialog, public snackBar: MatSnackBar,private route: ActivatedRoute) { }
 
@@ -39,16 +40,35 @@ export class InsumoComponent implements OnInit {
         this.id = params['id'];
         if(this.id){
           console.log("precargo insumo");
+          this.insumoService.buscarInsumo(this.id).subscribe(i => {
+            this.insumo = i;
+            this.preCargar(i);
+            this.cargarCombos();
+          });
+        } else {
+
         }
      });
+      
+    }
+  
+    cargarCombos(){
       this.getUnidadMedida();
       this.getCategorias();
     }
-  
+    
+    preCargar(i: InsumoNuevo): void {
+      this.insumoGroup.get("nombre").setValue(i.descripcion);
+    }
+
+    
     getUnidadMedida(): void {
       this.comboService.getUnidadesMedida()
         .subscribe(unidadMedida => {
           this.unidadMedida = unidadMedida
+          if(this.insumo){ 
+            this.insumoGroup.get("unidadMedidaControl").setValue(unidadMedida.find(l => l.id == this.insumo.idUnidadMedida));
+          }
           this.unidadMedidaOptions = this.insumoGroup.get("unidadMedidaControl").valueChanges
           .pipe(
           startWith<string | Combo>(''),
@@ -62,6 +82,9 @@ export class InsumoComponent implements OnInit {
       this.comboService.getCategoriasComedor()
         .subscribe(categoria => {
           this.categoria = categoria
+          if(this.insumo){ 
+            this.insumoGroup.get("categoriaControl").setValue(categoria.find(l => l.idCategoriaSecundaria == this.insumo.categoria.idCategoriaSecundaria));
+          }
           this.categoriaOptions = this.insumoGroup.get("categoriaControl").valueChanges
           .pipe(
           startWith<string | Categoria>(''),

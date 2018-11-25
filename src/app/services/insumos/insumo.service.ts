@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { catchError } from 'rxjs/internal/operators/catchError';
 import { HttpHeaders } from '@angular/common/http';
 import { InsumoMenu } from '../../model/insumo';
+import { InsumoNuevo } from '../../model/InsumoNuevo';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -64,6 +65,13 @@ export class InsumoService {
     return this.http.post<Boolean[]>(this.host + '/borrarInsumo', {idInsumo}, httpOptions)
       .pipe(
         catchError(this.handleError('borrarInsumo', []))
+      );
+  }
+
+  buscarInsumo (idInsumo): Observable<InsumoNuevo> {
+    return this.http.post<InsumoNuevo>(this.host + '/buscarInsumo', {idInsumo}, httpOptions)
+      .pipe(
+        catchError(this.handleError('buscarInsumo', null))
       );
   }
 }
