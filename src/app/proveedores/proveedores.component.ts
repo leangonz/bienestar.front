@@ -39,6 +39,7 @@ export class ProveedoresComponent implements OnInit {
   formasDePago: Combo[];
 
   id: number;
+  proveedor: Proveedor;
 
   constructor(private comboService: CombosService, private proveedorService: ProveedoresService,
     public snackBar: MatSnackBar,private route: ActivatedRoute) { 
@@ -49,16 +50,40 @@ export class ProveedoresComponent implements OnInit {
       this.id = params['id'];
       if(this.id){
         console.log("precargo proveedor");
+        this.proveedorService.buscarProveedor(this.id).subscribe(p => {
+          this.proveedor = p;
+          this.preCargar(p);
+          this.cargarCombos();
+        });
+      } else {
+        this.cargarCombos();
       }
    });
+    
+  }
+
+  cargarCombos(){
     this.getLocalidades();
     this.getFormasDePago();
+  }
+  
+  preCargar(p): void {
+    this.proveedorGroup.get("nombre").setValue(p.nombre);
+    this.proveedorGroup.get("cuit").setValue(p.cuit);
+    this.proveedorGroup.get("calle").setValue(p.calle);
+    this.proveedorGroup.get("altura").setValue(p.altura);
+    this.proveedorGroup.get("mail").setValue(p.mail);
+    this.proveedorGroup.get("telefono").setValue(p.telefono);
+    this.proveedorGroup.get("contacto").setValue(p.contacto);
   }
 
   getLocalidades(): void {
     this.comboService.getLocalidades()
       .subscribe(localidades => {
         this.localidades = localidades
+        if(this.proveedor){ 
+          this.proveedorGroup.get("localidad").setValue(localidades.find(l => l.id == this.proveedor.localidad));
+        }
         this.localidadOptions = this.proveedorGroup.get("localidad").valueChanges
         .pipe(
         startWith<string | Combo>(''),
@@ -72,6 +97,9 @@ export class ProveedoresComponent implements OnInit {
     this.comboService.getFormasDePago()
       .subscribe(formasDePago => {
         this.formasDePago = formasDePago
+        if(this.proveedor){
+          this.proveedorGroup.get("formaDePago").setValue(formasDePago.find(l => l.id == this.proveedor.formaDePago));
+        }
         this.formasDePagoOptions = this.proveedorGroup.get("formaDePago").valueChanges
         .pipe(
         startWith<string | Combo>(''),

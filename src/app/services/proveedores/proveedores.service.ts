@@ -44,4 +44,11 @@ export class ProveedoresService {
         catchError(this.handleError('borrarProveedor', []))
       );
   }
+
+  buscarProveedor (idProveedor): Observable<Proveedor> {
+    return this.http.post<Proveedor>(this.host + '/buscarProveedor', {idProveedor}, httpOptions)
+      .pipe(
+        catchError(this.handleError('buscarProveedor', null))
+      );
+  }
 }
