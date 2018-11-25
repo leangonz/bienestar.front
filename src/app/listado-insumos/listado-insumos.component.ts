@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Combo } from '../model/combo';
 import { InsumoMenu } from '../model/insumo';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource, MatSnackBar, MatDialog } from '@angular/material';
 import { CombosService } from '../services/combos/combos.service';
 import { InsumoService } from '../services/insumos/insumo.service';
 import { startWith, map } from 'rxjs/operators';
@@ -22,7 +22,8 @@ export class ListadoInsumosComponent implements OnInit {
   displayedColumns: string[] = ['insumo', 'categoria', 'unidadMedida', 'modificar', 'eliminar'];
   dataSource = new MatTableDataSource<InsumoMenu>();
 
-  constructor(private comboService: CombosService, private insumosService: InsumoService) { }
+  constructor(private comboService: CombosService, private insumosService: InsumoService,
+    public dialog: MatDialog, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.getInsumos();
@@ -30,7 +31,7 @@ export class ListadoInsumosComponent implements OnInit {
   }
 
   getInsumos(): void {
-    this.comboService.getInsumos()
+    this.comboService.getInsumosActivos()
       .subscribe(insumos => {
         this.insumos = insumos
         this.filteredOptions = this.insumosControl.valueChanges
@@ -71,4 +72,22 @@ export class ListadoInsumosComponent implements OnInit {
     this.buscarInsumos(id);
   } 
 
+  delete(id): void {
+    if(confirm("Are you sure to delete "+id)) {
+      this.insumosService.borrarInsumo(id).subscribe(rta =>{
+        console.log(rta);
+        if(rta){
+          this.filtrarInsumos();
+          this.getInsumos();
+          this.openSnackBar("Se elimino el insumo", "OK");
+        }
+      });
+    }
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 5000,
+    });
+  }
 }

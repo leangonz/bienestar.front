@@ -92,7 +92,7 @@ export class OrdenCompraComponent implements OnInit {
   }
 
   getInsumos(): void {
-    this.comboService.getInsumos()
+    this.comboService.getInsumosActivos()
       .subscribe(insumos => {
         this.insumos = insumos
         this.insumoOptions = this.compraGroup.get("insumo").valueChanges

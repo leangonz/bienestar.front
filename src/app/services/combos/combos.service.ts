@@ -111,6 +111,13 @@ export class CombosService {
       );
   }
 
+  getInsumosActivos (): Observable<Combo[]> {
+    return this.http.get<Combo[]>(this.host + '/comboInsumosActivos', httpOptions)
+      .pipe(
+        catchError(this.handleError('getInsumosActivos', []))
+      );
+  }
+
   getTiposMenu (): Observable<Combo[]> {
     return this.http.get<Combo[]>(this.host + '/comboTipoMenue', httpOptions)
       .pipe(

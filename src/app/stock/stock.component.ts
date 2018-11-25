@@ -29,7 +29,7 @@ export class StockComponent implements OnInit {
   }
 
   getInsumos(): void {
-    this.comboService.getInsumos()
+    this.comboService.getInsumosActivos()
       .subscribe(insumos => {
         this.insumos = insumos
         this.filteredOptions = this.filterControl.valueChanges

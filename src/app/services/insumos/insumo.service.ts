@@ -59,4 +59,11 @@ export class InsumoService {
         catchError(this.handleError('filtrarInsumo', []))
       );
   }
+
+  borrarInsumo (idInsumo): Observable<Boolean[]> {
+    return this.http.post<Boolean[]>(this.host + '/borrarInsumo', {idInsumo}, httpOptions)
+      .pipe(
+        catchError(this.handleError('borrarInsumo', []))
+      );
+  }
 }
