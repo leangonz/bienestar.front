@@ -44,4 +44,11 @@ export class MenuService {
         catchError(this.handleError('borrarMenu', []))
       );
   }
+
+  buscarMenu (idMenu): Observable<Menu> {
+    return this.http.post<Menu>(this.host + '/buscarMenu', {idMenu}, httpOptions)
+      .pipe(
+        catchError(this.handleError('buscarMenu', null))
+      );
+  }
 }

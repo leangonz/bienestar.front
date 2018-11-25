@@ -35,7 +35,8 @@ export class MenuComponent implements OnInit {
   dataSource = new MatTableDataSource<InsumoMenu>();
 
   id: number;
-  
+  menu: Menu;
+
   constructor(private comboService: CombosService, private insumoService: InsumoService,
     public dialog: MatDialog, public snackBar: MatSnackBar, private menuService: MenuService,
     private route: ActivatedRoute) { }
@@ -45,16 +46,35 @@ export class MenuComponent implements OnInit {
       this.id = params['id'];
       if(this.id){
         console.log("precargo menu");
+        this.menuService.buscarMenu(this.id).subscribe(m => {
+          this.menu = m;
+          this.preCargar(m);
+          this.cargarCombos();
+        });
+      } else {
+        this.cargarCombos();
       }
    });
+    
+  }
+
+  cargarCombos(){
     this.getTiposMenu();
     this.getInsumos();
+  }
+  
+  preCargar(m: Menu): void {
+    this.menuGroup.get("nombre").setValue(m.nombreMenu);
+    this.dataSource = new MatTableDataSource<InsumoMenu>(this.menu.insumos);
   }
 
   getTiposMenu(): void {
     this.comboService.getTiposMenu()
       .subscribe(tiposMenu => {
         this.tiposMenu = tiposMenu
+        if(this.menu){ 
+          this.menuGroup.get("tipoMenuControl").setValue(tiposMenu.find(l => l.id == this.menu.tipoMenu));
+        }
         this.tipoMenuOptions = this.menuGroup.get("tipoMenuControl").valueChanges
         .pipe(
         startWith<string | Combo>(''),
