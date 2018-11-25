@@ -3,7 +3,7 @@ import { Combo } from '../model/combo';
 import { Menu } from '../model/menu';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource, MatSnackBar, MatDialog } from '@angular/material';
 import { CombosService } from '../services/combos/combos.service';
 import { MenuService } from '../services/menu/menu.service';
 import { startWith, map } from 'rxjs/operators';
@@ -22,7 +22,8 @@ export class ListadoMenusComponent implements OnInit {
   displayedColumns: string[] = ['nombre', 'tipo', 'modificar', 'eliminar'];
   dataSource = new MatTableDataSource<Menu>();
 
-  constructor(private comboService: CombosService, private proveedoresService: MenuService) { }
+  constructor(private comboService: CombosService, private menuService: MenuService,
+    public dialog: MatDialog, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.getMenus();
@@ -57,7 +58,7 @@ export class ListadoMenusComponent implements OnInit {
   }
 
   buscarMenus(id): void {
-    this.proveedoresService.filtrarMenu(id).subscribe(menus => {
+    this.menuService.filtrarMenu(id).subscribe(menus => {
       console.log(menus);
       this.dataSource = new MatTableDataSource<Menu>(menus);
     });
@@ -71,4 +72,22 @@ export class ListadoMenusComponent implements OnInit {
     this.buscarMenus(id);   
   }
 
+  delete(id): void {
+    if(confirm("Are you sure to delete "+id)) {
+      this.menuService.borrarMenu(id).subscribe(rta =>{
+        console.log(rta);
+        if(rta){
+          this.filtrarMenus();
+          this.getMenus();
+          this.openSnackBar("Se elimino el menu", "OK");
+        }
+      });
+    }
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 5000,
+    });
+  }
 }

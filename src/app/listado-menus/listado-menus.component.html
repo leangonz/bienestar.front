@@ -39,7 +39,7 @@
         <ng-container matColumnDef="eliminar">
           <mat-header-cell mat-header-cell *matHeaderCellDef></mat-header-cell>
           <mat-cell *matCellDef="let element">
-            <button mat-button (click)="borrarMenu(element.id)">
+            <button mat-button (click)="delete(element.idMenu)">
               <mat-icon>delete</mat-icon>
             </button>
           </mat-cell>

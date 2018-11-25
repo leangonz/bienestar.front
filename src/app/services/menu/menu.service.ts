@@ -37,4 +37,11 @@ export class MenuService {
         catchError(this.handleError('filtrarMenu', []))
       );
   }
+
+  borrarMenu (idMenu): Observable<Boolean[]> {
+    return this.http.post<Boolean[]>(this.host + '/borrarMenu', {idMenu}, httpOptions)
+      .pipe(
+        catchError(this.handleError('borrarMenu', []))
+      );
+  }
 }
