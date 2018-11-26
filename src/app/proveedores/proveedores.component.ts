@@ -135,6 +135,7 @@ export class ProveedoresComponent implements OnInit {
       if(resultado){
         this.reiniciarForm();
         this.openSnackBar("Se creó el proveedor " + dtoToSend.nombre ,"OK");
+        this.router.navigate(['/listaProveedores']);
       }
     });
   }

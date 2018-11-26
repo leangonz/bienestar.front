@@ -176,6 +176,7 @@ export class MenuComponent implements OnInit {
       if(resultado){
         this.reiniciarForm();
         this.openSnackBar("Se creó el menú " + dtoToSend.nombreMenu ,"OK");
+        this.router.navigate(['/listaMenus']);
       }
     });
   }

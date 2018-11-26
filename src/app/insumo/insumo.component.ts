@@ -146,6 +146,7 @@ export class InsumoComponent implements OnInit {
         if(resultado){
           this.reiniciarForm();
           this.openSnackBar("Se guardó el insumo", "OK");
+          this.router.navigate(['/listaInsumos']);
         }
       });
     }
