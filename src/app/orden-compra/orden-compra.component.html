@@ -32,8 +32,8 @@
       </mat-form-field>
     </section>
     <section>
-      <mat-form-field class="combo">
-        <input type="text" placeholder="Categoria" aria-label="Number" matInput formControlName="categoria" [matAutocomplete]="autoCategoria">
+      <mat-form-field [hidden]="compra" class="combo">
+        <input [hidden]="compra" type="text" placeholder="Categoria" aria-label="Number" matInput formControlName="categoria" [matAutocomplete]="autoCategoria">
         <mat-autocomplete autoActiveFirstOption #autoCategoria="matAutocomplete" [displayWith]="displayCombo">
           <mat-option *ngFor="let item of categoriaOptions | async" [value]="item">
             {{item.descripcion}}
@@ -42,8 +42,8 @@
       </mat-form-field>
     </section>
     <section>
-      <mat-form-field class="combo">
-        <input type="text" placeholder="Insumo" aria-label="Number" matInput formControlName="insumo" [matAutocomplete]="autoInsumo">
+      <mat-form-field [hidden]="compra" class="combo">
+        <input type="text" [hidden]="compra" placeholder="Insumo" aria-label="Number" matInput formControlName="insumo" [matAutocomplete]="autoInsumo">
         <mat-autocomplete autoActiveFirstOption #autoInsumo="matAutocomplete" [displayWith]="displayCombo">
           <mat-option *ngFor="let item of insumoOptions | async" [value]="item">
             {{item.descripcion}}
@@ -52,17 +52,17 @@
       </mat-form-field>
     </section>
     <section class="section">
-      <mat-form-field class="inputNumber">
-        <input matInput type="number" placeholder="Cantidad" min="0" formControlName="cantidad">
+      <mat-form-field class="inputNumber" [hidden]="compra">
+        <input [hidden]="compra" matInput type="number" placeholder="Cantidad" min="0" formControlName="cantidad">
       </mat-form-field>
 
-      <mat-form-field class="inputNumber">
+      <mat-form-field class="inputNumber" [hidden]="compra">
         <input matInput type="number" placeholder="Precio unitario" [step]="0.01" min="0.01" formControlName="precioUnitario">
       </mat-form-field>
     </section>
     <section class="section">
     <button mat-raised-button mat-button color="primary" (click)="agregarItem()" type="button"
-      [disabled]="!compraGroup.valid">Agregar</button>
+      [disabled]="!compraGroup.valid" [hidden]="compra">Agregar</button>
     </section>
     <section>
       <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
@@ -111,7 +111,7 @@
         </mat-table>
       </section>
       <div class="button-row">
-        <button class="submit-btn" color="primary" mat-raised-button type="submit" [disabled]="isEmptyTable()">Guardar</button>
+        <button class="submit-btn" color="primary" [hidden]="compra" mat-raised-button type="submit" [disabled]="isEmptyTable()">Guardar</button>
       </div>
   </form>
 </body>

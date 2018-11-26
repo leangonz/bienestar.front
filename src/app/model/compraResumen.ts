@@ -1,5 +1,5 @@
 export interface CompraResumen {
-    id: number,
+    idOC: number,
     factura: string,
     fecha: string,
     proveedor: string,

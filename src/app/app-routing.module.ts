@@ -28,6 +28,7 @@ const routes: Routes = [
   { path: 'proveedores/:id', component: ProveedoresComponent, canActivate: [AuthGuard] },
   { path: 'stock', component: StockComponent, canActivate: [AuthGuard] },
   { path: 'compra', component: OrdenCompraComponent, canActivate: [AuthGuard] },
+  { path: 'compra/:id', component: OrdenCompraComponent, canActivate: [AuthGuard] },
   { path: 'listaCompras', component: ListadoComprasComponent, canActivate: [AuthGuard] },
   { path: 'reportes', component: ReportesComponent, canActivate: [AuthGuard] },
   { path: 'descarte', component: DescarteComponent, canActivate: [AuthGuard] },

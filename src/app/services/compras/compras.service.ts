@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { CompraResumen } from '../../model/compraResumen';
+import { Compra } from '../../model/compra';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -35,6 +36,13 @@ export class ComprasService {
     return this.http.post<CompraResumen[]>(this.host + '/filtrarCompra', {idProveedor, factura}, httpOptions)
       .pipe(
         catchError(this.handleError('filtrarCompra', []))
+      );
+  }
+
+  buscarCompra (idCompra): Observable<Compra> {
+    return this.http.post<Compra>(this.host + '/buscarCompra', {idCompra}, httpOptions)
+      .pipe(
+        catchError(this.handleError('buscarCompra', null))
       );
   }
 }

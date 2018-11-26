@@ -8,6 +8,8 @@ import { MatTableDataSource, MatSnackBar } from '@angular/material';
 import { CompraItem } from '../model/compraItem';
 import { Compra } from '../model/compra';
 import { ComprasService } from '../services/compras/compras.service';
+import { CompraResumen } from '../model/compraResumen';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-orden-compra',
@@ -42,20 +44,53 @@ export class OrdenCompraComponent implements OnInit {
   displayedColumns: string[] = ['insumo', 'cantidad', 'precioUnitario', 'precioTotal', 'delete'];
   dataSource = new MatTableDataSource<CompraItem>();
 
+  id: number;
+  compra: Compra;
+
   constructor(private comboService: CombosService, private comprasService: ComprasService,
-    public snackBar: MatSnackBar) { }
+    public snackBar: MatSnackBar, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.route.params.subscribe(params => {
+      this.id = params['id'];
+      if(this.id){
+        console.log("precargo proveedor");
+        this.comprasService.buscarCompra(this.id).subscribe(c => {
+          this.compra = c;
+          this.preCargar(c);
+          this.cargarCombos();
+        });
+      } else {
+        this.cargarCombos();
+      }
+   });
+    
+  }
+
+  cargarCombos(){
     this.getProveedores();
     this.getAreas();
     this.getCategorias();
     this.getInsumos();
   }
 
+  preCargar(c): void {
+    this.compraGroup.get("fecha").setValue(c.fecha);
+    this.compraGroup.get("factura").setValue(c.factura);
+    this.compraGroup.get("proveedor").value.id;
+    this.compraGroup.get("area").value.id;
+    this.compraGroup.get("categoria").value.id;
+    this.dataSource = new MatTableDataSource<CompraItem>(this.compra.items);
+  }
+
   getProveedores(): void {
     this.comboService.getProveedoresActivos()
       .subscribe(proveedores => {
         this.proveedores = proveedores
+        if(this.compra){ 
+          //armo el obj a mano xq es posible q el proveedor este eliminado
+          this.compraGroup.get("proveedor").setValue({id:this.compra.proveedor, descripcion:this.compra.descProveedor});
+        }
         this.proveedorOptions = this.compraGroup.get("proveedor").valueChanges
         .pipe(
         startWith<string | Combo>(''),
@@ -69,6 +104,9 @@ export class OrdenCompraComponent implements OnInit {
     this.comboService.getAreas()
       .subscribe(areas => {
         this.areas = areas
+        if(this.compra){ 
+          this.compraGroup.get("area").setValue(areas.find(l => l.id == +this.compra.area));
+        }
         this.areaOptions = this.compraGroup.get("area").valueChanges
         .pipe(
         startWith<string | Combo>(''),
@@ -82,6 +120,9 @@ export class OrdenCompraComponent implements OnInit {
     this.comboService.getCategorias()
       .subscribe(categorias => {
         this.categorias = categorias
+        if(this.compra){ 
+          this.compraGroup.get("categoria").setValue(categorias.find(l => l.id == +this.compra.categoria));
+        }
         this.categoriaOptions = this.compraGroup.get("categoria").valueChanges
         .pipe(
         startWith<string | Combo>(''),
