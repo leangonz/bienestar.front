@@ -27,6 +27,11 @@ export class ListadoComprasComponent implements OnInit {
 
   ngOnInit() {
     this.getProveedores();
+    this.fillTable();
+  }
+
+  fillTable(): void {
+    this.buscarCompra(null, null);
   }
 
   getProveedores(): void {
@@ -61,10 +66,13 @@ export class ListadoComprasComponent implements OnInit {
     if(this.facturaControl.value){
      factura = this.facturaControl.value;
     }
+    this.buscarCompra(proveedor, factura);
+  }
+
+  buscarCompra(proveedor, factura) :void{
     this.comprasService.filtrarCompras(proveedor, factura).subscribe(compras => {
       console.log(compras);
       this.dataSource = new MatTableDataSource<CompraResumen>(compras);
     });
   }
-
 }
